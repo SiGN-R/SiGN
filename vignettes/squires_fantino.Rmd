@@ -42,28 +42,28 @@ Running the model yields the following prediction:
 SiGN(fantino_1969)
 ```
 
-... we can see that we obtain a choice proportion of 0.9, which is what Fantino predicted with his original delay reduction hypothesis (Fantino, 1969).
+... we obtain a choice proportion of 0.9, which is what Fantino predicted with his original delay reduction hypothesis (Fantino, 1969).
 
 ## Reproducing Predictions from Squires and Fantino (1971)
 
-A key feature of the SiGN model is that it does not rely solely on delay reduction to predict choice behaviour. Instead, it incorporates the approach proposed by Squires and Fantino (1971), in which delay reduction is multiplied by the rate of terminal reinforcement. In classic concurrent-chain arrangements—with a single, deterministic terminal link and outcome per alternative—this formulation yields predictions that align exactly with theirs.
+A key feature of the SiGN model is that it does not rely solely on delay reduction to predict choice behaviour. Instead, it incorporates the approach proposed by Squires and Fantino (1971), in which delay reduction is multiplied by the rate of terminal reinforcement. In classic concurrent-chain arrangements—with a single, deterministic terminal link and outcome per alternative—this yields predictions that align exactly with theirs.
 
-Using the SiGN package, we can reproduce the model predictions presented in Figure 1 of Squires and Fantino's (1971) paper. These predictions illustrate how changes to the initial link (IL) duration influence choice behaviour in classic concurrent-chain arrangements.
+Using the SiGN package, we can reproduce the model predictions presented in Figure 1 of Squires and Fantino's (1971) paper. These predictions illustrate how changes to the initial-link duration influence choice behaviour in classic concurrent-chain arrangements.
 
-In one example, Squires and Fantino compared chains with identical terminal links (TLs) but different fixed IL durations: Chain VI$x$ VI30 versus Chain VI$x$ VI90.
+In one example, Squires and Fantino compared chains with initial-links of equal duration and terminal-links (TL) of unequal duration, but manipulated the length of the former: Chain VI $x$-sec VI 30-sec versus Chain VI $x$-sec VI 90-sec.
 
 ```{r message = FALSE}
-# Squires and Fantino: VIx VI30 vs VIx VI90
+# Squires and Fantino: VI x-sec VI 30-sec vs VI x-sec VI 90-sec
 sf_1_params <- choice_params("fantino",
   il_dur_a = seq(1, 600, 0.1),
   il_dur_b = seq(1, 600, 0.1)
 )
 ```
 
-In another example, the comparison is between Chain VI60 VI15 and Chain VI$x$ VI15. Here, the terminal links are held constant (15 s on both sides), while only the initial link duration of one alternative is manipulated. Critically, a prediction based purely on delay reduction would predict indifference (0.5) in this situation because the two terminal links represent the same degree of improvement to terminal reinforcement. This highlights the significance of Squires and Fantino’s (1971) extension to the delay-reduction model, which incorporates both delay-reduction and reinforcement rate to explain preference.
+In another example, the comparison is between Chain VI 60-sec VI 15-sec and Chain VI $x$-sec VI 15-sec. Here, the terminal links are held constant (15 s on both sides), while only the initial-link duration of one alternative is manipulated. Critically, a prediction based purely on delay reduction would predict indifference (0.5) in this situation because the two terminal links represent the same degree of improvement to terminal reinforcement. This highlights the significance of Squires and Fantino's (1971) extension to the delay-reduction model, which incorporates both delay-reduction and reinforcement rate to account for preference.
 
 ```{r message = FALSE}
-# Squires and Fantino: VI60 VI15 vs VIx VI15
+# Squires and Fantino: VI 60-sec VI 15-sec vs VI x-sec VI 15-sec
 sf_2_params <- choice_params(
 
   # Initial link (il) duration (dur)
@@ -152,7 +152,7 @@ ggplot(
   )
 ```
 
-The plot shows that the SiGN model reproduces the patterns reported by Squires and Fantino (1971), illustrating how SiGN integrates both delay-reduction and terminal reinforcement rate to account for classic choice behaviour, replicating foundational findings from early concurrent-chain research.
+The plot shows that the SiGN model reproduces the predictions reported by Squires and Fantino (1971; see their Figure 1), illustrating how SiGN integrates both delay-reduction and terminal reinforcement rate to account for classic choice behaviour, replicating foundational findings from early concurrent-chain research.
 
 ## References
 

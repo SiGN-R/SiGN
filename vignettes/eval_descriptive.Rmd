@@ -27,7 +27,7 @@ To use the function, only two inputs are technically required: a vector of obser
 choice_mod_eval(observed, predicted, k = 0, epsilon = 0.001, ...)
 ```
 
-The function can take some additional arguments `k` and `epsilon`, but as these pertain to the information-theoretic outputs, they are not considered here (see [Information-Theoretic Statistics](eval_info-theoretic.html)).
+The function can take additional arguments `k` and `epsilon`, but as these pertain to the information-theoretic outputs, they are not considered here (see [Information-Theoretic Statistics](eval_info-theoretic.html)).
 
 When called, it returns a list containing three components:
 
@@ -123,15 +123,15 @@ Note: By default, `choice_mod_eval()` computes CCC using bias-corrected sample s
 
 ### Background
 
-To demonstrate a real-world use case of `choice_mod_eval()`, we revisit the analysis from Dunn et al. (2024), who evaluated the SiGN model using a curated subset of avian suboptimal choice studies. This data set is included in the SiGN package as `subopt_avian`.
+To demonstrate a real-world use case of `choice_mod_eval()`, we revisit the analysis from Dunn et al. (2024), which evaluated the SiGN model using a curated subset of avian suboptimal choice studies. That data set is included in the SiGN package as `subopt_avian`.
 
-In their original analysis, Dunn et al. reported $R^2$ values based on the correlation between observed and predicted choice proportions. The logic was intuitive: if the model’s predictions align with the data, the correlation—and hence the $R^2$—should approach 1. Indeed, their scatterplot of observed versus predicted values showed a strong linear trend, with a slope near 1 and intercept near 0.
+In their original analysis, Dunn et al. reported $R^2$ values based on the correlation between observed and predicted choice proportions. The logic was intuitive: if the model's predictions align with the data, the correlation—and hence the $R^2$—should approach 1. Indeed, their scatterplot of observed versus predicted values showed a strong linear trend, with a slope near 1 and intercept near 0 suggesting excellent model performance.
 
-At first glance, this suggests excellent model performance. However, this approach, which has often been the standard in the choice literature, reflects only the strength of linear association. It does not assess how well the predictions actually replicate the observed data, nor does it validate the model's theoretical assumptions. In this context, a high correlation-based $R^2$ may signal superficial agreement rather than meaningful fit.
+That approach, which has often been the standard in the choice literature, reflects only the strength of linear association. It does not assess how well the predictions actually replicate the observed data, nor does it validate the model's theoretical assumptions. In this context, a high correlation-based $R^2$ may signal superficial agreement rather than meaningful fit.
 
 A stronger assessment of the model would have been to compute an $R^2$ based on residual error from the predictive model itself (Kvålseth, 1985)—the version detailed in Equation 1 above. While this residual-based $R^2$ also has limitations (as discussed earlier), it offers a more direct measure of predictive accuracy.
 
-For these reasons, many researchers recommend placing greater weight on information-theoretic metrics such as the Akaike Information Criterion (AIC) or Bayesian Information Criterion (BIC), especially when comparing nonlinear models or models of differing complexity (Spiess & Neumeyer, 2010). These criteria provide more theoretically grounded assessments of model fit and penalise complexity in a principled way.
+For these reasons, many researchers recommend placing greater weight on information-theoretic metrics such as the Akaike Information Criterion (AIC) or Bayesian Information Criterion (BIC), especially when comparing nonlinear models or models of differing complexity (e.g., Spiess & Neumeyer, 2010). These criteria provide more theoretically grounded assessments of model fit and penalise complexity in a principled way.
 
 That said, it's important to note that the SiGN model used by Dunn et al. was not fitted to the data in the conventional sense—it contained no free parameters. Predictions were generated solely from the predefined structure of the choice procedure, with no tuning to optimise fit. As a result, traditional model selection tools like AIC and BIC—which rely on maximised likelihoods and penalise model flexibility—are not strictly (or perhaps we should say, "easily") applicable in this context. 
 
