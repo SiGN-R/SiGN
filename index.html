@@ -13,6 +13,7 @@
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Signal for Good News Model R Package">
 <meta name="description" content="An R package that implements the Signals for Good News (SiGN) model to compute behavioural predictions in operant choice paradigms.">
 <meta property="og:description" content="An R package that implements the Signals for Good News (SiGN) model to compute behavioural predictions in operant choice paradigms.">
+<meta property="og:image" content="https://sign-r.github.io/SiGN/logo.svg">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -55,43 +56,116 @@
   </div>
 </nav><div class="container template-home">
 <div class="row">
-  <main id="main" class="col-md-9"><div class="section level1">
-<div class="page-header"><h1 id="sign">SiGN<a class="anchor" aria-label="anchor" href="#sign"></a>
-</h1></div>
-<!-- badges: start -->
-<!-- badges: end -->
-<p>The goal of SiGN is to …</p>
+  <main id="main" class="col-md-9"><table class="table"><tr>
+<td style="vertical-align: middle;">
+<a href="https://sign-r.github.io/SiGN/"> <img src="reference/figures/logo.svg" width="120"></a>
+</td>
+<td style="vertical-align: middle; padding-left: 15px;">
+<!-- <h2>**SiGN**</h2> -->
+<span style="font-size: 200%; font-weight: bold;">SiGN</span>
+<p>
+<em>The Signal for Good News Model R Package</em>
+</p>
+</td>
+</tr></table>
+<!-- # SiGN <a href="https://jpisklak.github.io/SiGN/"><img src="man/figures/logo.png" align="right" height="139" alt="SiGN website" /></a> --><!-- badges: start --><!-- badges: end --><div class="section level2">
+<h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
+</h2>
+<p>Designed for researchers in behavioural science, SiGN is an R package that applies the Signal for Good News (SiGN) model to predict choice behaviour in operant conditioning settings.</p>
+</div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>You can install the development version of SiGN from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
+<p>You can install SiGN’s development version from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># install.packages("pak")</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"pak"</span><span class="op">)</span></span>
 <span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"SiGN-R/SiGN"</span><span class="op">)</span></span></code></pre></div>
+<p>Then load the package with:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/SiGN-R/SiGN" class="external-link">SiGN</a></span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
+<h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
 </h2>
-<p>This is a basic example which shows you how to solve a common problem:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/SiGN-R/SiGN" class="external-link">SiGN</a></span><span class="op">)</span></span>
-<span><span class="co">## basic example code</span></span></code></pre></div>
-<p>What is special about using <code>README.Rmd</code> instead of just <code>README.md</code>? You can include R chunks like so:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">cars</span><span class="op">)</span></span>
-<span><span class="co">#&gt;      speed           dist       </span></span>
-<span><span class="co">#&gt;  Min.   : 4.0   Min.   :  2.00  </span></span>
-<span><span class="co">#&gt;  1st Qu.:12.0   1st Qu.: 26.00  </span></span>
-<span><span class="co">#&gt;  Median :15.0   Median : 36.00  </span></span>
-<span><span class="co">#&gt;  Mean   :15.4   Mean   : 42.98  </span></span>
-<span><span class="co">#&gt;  3rd Qu.:19.0   3rd Qu.: 56.00  </span></span>
-<span><span class="co">#&gt;  Max.   :25.0   Max.   :120.00</span></span></code></pre></div>
-<p>You’ll still need to render <code>README.Rmd</code> regularly, to keep <code>README.md</code> up-to-date. <code>devtools::build_readme()</code> is handy for this.</p>
-<p>You can also embed plots, for example:</p>
-<p><img src="reference/figures/README-pressure-1.png" width="100%"></p>
-<p>In that case, don’t forget to commit and push the resulting figure files, so they display on GitHub and CRAN.</p>
+<p>To get started with the package, begin by reading the <a href="articles/SiGN.html">Get Started</a> article, which introduces the core functionality of the SiGN package.</p>
+<p>Then, explore the following articles to see other uses of the package:</p>
+<ul>
+<li>
+<a href="articles/squires_fantino.html">Classic Concurrent-Chains</a>
+<ul>
+<li>Re-analyzes classic concurrent-chain experiments using SiGN predictions, and shows how to generate predictions across a range of parameter values.</li>
+</ul>
+</li>
+<li>
+<a href="articles/batch-predict.html">Predictions From Data Frames</a>
+<ul>
+<li>Demonstrates how to generate model predictions in batch from a data frame of input parameters.</li>
+</ul>
+</li>
+</ul>
+<p>For a more advanced use case involving model evaluation, see the following:</p>
+<ul>
+<li>
+<a href="articles/eval_descriptive.html">Model Evaluation: Descriptive Statistics</a>
+<ul>
+<li>Introduces metrics such as RMSE, MAE, and Lin’s Concordance Coefficient for assessing model performance.</li>
+</ul>
+</li>
+<li>
+<a href="articles/eval_info-theoretic.html">Model Evaluation: Information-Theoretic Statistics</a>
+<ul>
+<li>Describes how to compare choice models generally (not just the SiGN model) using likelihood-based metrics such as AIC, BIC, and Bayes Factors.</li>
+</ul>
+</li>
+</ul>
 </div>
+<div class="section level2">
+<h2 id="ready-to-use-suboptimal-choice-data-and-profiles">Ready-to-Use Suboptimal Choice Data and Profiles<a class="anchor" aria-label="anchor" href="#ready-to-use-suboptimal-choice-data-and-profiles"></a>
+</h2>
+<p>The package includes:</p>
+<ul>
+<li>
+<p>Built-in datasets — Two curated datasets from Dunn et al. (2024):</p>
+<ul>
+<li><p><code>subopt_full</code>: the complete dataset of suboptimal choice studies.</p></li>
+<li><p><code>subopt_avian</code>: a filtered subset focused on pigeons and starlings.</p></li>
+</ul>
+</li>
+<li>
+<p>Built-in parameter profiles — Predefined setups for well-known procedures from the literature, including:</p>
+<ul>
+<li><p><code>"zentall"</code> (Stagner and Zentall, 2010)</p></li>
+<li><p><code>"kendall"</code> (Kendall, 1985)</p></li>
+<li><p><code>"fantino"</code> (Fantino, 1969)</p></li>
+</ul>
+</li>
+<li><p>Fully vectorised parameter input — All model parameters can be customised and passed as vectors, enabling efficient simulation of multiple conditions.</p></li>
+</ul>
 </div>
+<div class="section level2">
+<h2 id="try-the-package-without-installing-r">Try the Package Without Installing R<a class="anchor" aria-label="anchor" href="#try-the-package-without-installing-r"></a>
+</h2>
+<p><a href="https://jpisklak.shinyapps.io/SiGN_Calc/" class="external-link"><img src="https://img.shields.io/badge/try%20it-online%20calculator-brightgreen" alt="Launch Calculator"></a></p>
+<p>You can generate predictions with the SiGN model in your browser using the free, interactive SiGN Calculator — no installation or coding required.</p>
+<p>Set up custom choice scenarios and instantly view predicted preferences and model diagnostics. It’s a great way to explore how delay reduction and reinforcement schedules influence decision-making.</p>
+<p>📎 This is ideal for students, collaborators, or researchers who want to explore the model without any writing code.</p>
+</div>
+<div class="section level2">
+<h2 id="planned-features">Planned Features<a class="anchor" aria-label="anchor" href="#planned-features"></a>
+</h2>
+<p>The SiGN package is under active development. Upcoming updates will expand its capabilities to support a generalised version of the SiGN model that incorporates free parameters for model fitting and comparison.</p>
+<p>Additional tools for model evaluation, simulation, and visualisation are also being considered.</p>
+<p>Stay tuned for updates, and feel free to suggest features or contribute!</p>
+</div>
+<div class="section level2">
+<h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
+<p>Dunn, R. M., Pisklak, J. M., McDevitt, M. A., &amp; Spetch, M. L. (2024). Suboptimal choice: A review and quantification of the signal for good news (SiGN) model. <em>Psychological Review</em>. <em>131</em>(1), 58-78. <a href="https://doi.org/10.1037/rev0000416" class="external-link uri">https://doi.org/10.1037/rev0000416</a></p>
+<p>Fantino, E. (1969). Choice and rate of reinforcement. <em>Journal of the Experimental Analysis of Behavior</em>, <em>12</em>(5), 723–730. <a href="https://doi.org/10.1901/jeab.1969.12-723" class="external-link uri">https://doi.org/10.1901/jeab.1969.12-723</a></p>
+<p>Kendall, S. B. (1985). A further study of choice and percentage reinforcement. <em>Behavioural Processes</em>, <em>10</em>(4), 399–413. <a href="https://doi.org/10.1016/0376-6357(85)90040-3" class="external-link uri">https://doi.org/10.1016/0376-6357(85)90040-3</a></p>
+<p>Stagner, J. P., &amp; Zentall, T. R. (2010). Suboptimal choice behavior by pigeons. <em>Psychonomic Bulletin &amp; Review</em>, <em>17</em>(3), 412–416. <a href="https://doi.org/10.3758/PBR.17.3.412" class="external-link uri">https://doi.org/10.3758/PBR.17.3.412</a></p>
+</div>
+
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
