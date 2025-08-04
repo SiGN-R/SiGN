@@ -25,8 +25,6 @@ This vignette introduces a set of information-theoretic model comparison tools f
 
 The calculations are based on a beta-distributed error model, which is well suited to evaluating predictions of choice proportions—particularly when those proportions are bounded between 0 and 1 and exhibit non-constant variance.
 
-This vignette outlines the rationale behind these metrics, describes the underlying error model assumptions, and demonstrates how to compute and interpret the information-theoretic outputs.
-
 ## General Usage
 
 To compute information-theoretic model evaluation metrics using `choice_mod_eval()`, three inputs are required:

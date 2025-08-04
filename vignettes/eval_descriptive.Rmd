@@ -127,9 +127,9 @@ To demonstrate a real-world use case of `choice_mod_eval()`, we revisit the anal
 
 In their original analysis, Dunn et al. reported $R^2$ values based on the correlation between observed and predicted choice proportions. The logic was intuitive: if the model’s predictions align with the data, the correlation—and hence the $R^2$—should approach 1. Indeed, their scatterplot of observed versus predicted values showed a strong linear trend, with a slope near 1 and intercept near 0.
 
-At first glance, this suggests excellent model performance. However, this approach reflects only the strength of linear association—it does not assess how well the predictions actually replicate the observed data, nor does it validate the model’s theoretical assumptions. In this context, a high correlation-based $R^2$ may signal superficial agreement rather than meaningful fit.
+At first glance, this suggests excellent model performance. However, this approach, which has often been the standard in the choice literature, reflects only the strength of linear association. It does not assess how well the predictions actually replicate the observed data, nor does it validate the model's theoretical assumptions. In this context, a high correlation-based $R^2$ may signal superficial agreement rather than meaningful fit.
 
-A more appropriate alternative would have been to compute an $R^2$ based on residual error from the predictive model itself (Kvålseth, 1985)—the version detailed in Equation 1 above. While this residual-based $R^2$ also has limitations (as discussed earlier), it offers a more direct measure of predictive accuracy.
+A stronger assessment of the model would have been to compute an $R^2$ based on residual error from the predictive model itself (Kvålseth, 1985)—the version detailed in Equation 1 above. While this residual-based $R^2$ also has limitations (as discussed earlier), it offers a more direct measure of predictive accuracy.
 
 For these reasons, many researchers recommend placing greater weight on information-theoretic metrics such as the Akaike Information Criterion (AIC) or Bayesian Information Criterion (BIC), especially when comparing nonlinear models or models of differing complexity (Spiess & Neumeyer, 2010). These criteria provide more theoretically grounded assessments of model fit and penalise complexity in a principled way.
 
@@ -138,8 +138,6 @@ That said, it's important to note that the SiGN model used by Dunn et al. was no
 ### Generating Predictions
 
 Each row in `subopt_avian` represents a distinct condition from a published study. Columns 9 through 24 correspond directly to parameters required by the `choice_params()` function. (For full details, consult the `subopt_avian` documentation.)
-
-Each row in the `subopt_avian` data set represents a distinct experimental condition from a published suboptimal choice study. Columns 9 through 24 provide the parameters needed by the `choice_params()` function (see the `subopt_avian` documentation for full details).
 
 ```{r}
 library(SiGN)
