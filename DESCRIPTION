@@ -23,7 +23,7 @@ Suggests:
     tidyr,
     ggplot2
 Config/testthat/edition: 3
-URL: https://github.com/SiGN-R/SiGN
+URL: https://github.com/SiGN-R/SiGN, https://sign-r.github.io/SiGN/
 BugReports: https://github.com/SiGN-R/SiGN/issues
 Imports: 
     minpack.lm
