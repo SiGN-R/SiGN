@@ -1,4 +1,46 @@
 url: https://sign-r.github.io/SiGN/
 template:
   bootstrap: 5
+  math-rendering: mathjax
+
+home:
+  strip_header: true
+  sidebar:
+    structure: [links, license, community, citation, doi, authors, dev]
+    components:
+      doi:
+        title: ""
+        text: <a href = "https://doi.org/10.5281/zenodo.15955615"><img src = "https://zenodo.org/badge/1016380571.svg"></a>
+
+navbar:
+  structure:
+    left:
+      - home
+      - get-started
+      - reference
+      - articles
+      - news
+      - calculator
+
+  components:
+    get-started:
+      text: "Get started"
+      href: "articles/SiGN.html"
+
+    calculator:
+      text: "Online Calculator"
+      href: "https://jpisklak.shinyapps.io/SiGN_Calc/"
+
+articles:
+  - title: Basics
+    navbar: Basics
+    contents:
+      - squires_fantino
+      - batch-predict
+
+  - title: Model Evaluation
+    navbar: Model Evaluation
+    contents:
+      - eval_descriptive
+      - eval_info-theoretic
 

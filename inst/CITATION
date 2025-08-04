@@ -1,0 +1,18 @@
+pkg_ver <- paste0("Version ", as.character(utils::packageVersion("SiGN")))
+built <- strsplit(packageDescription("SiGN")$Built, ";")[[1]][3]
+year <- as.numeric(substr(trimws(built), 1, 4))
+
+bibentry(
+  bibtype = "Manual",
+  title = "SiGN: Signal for Good News Model R Package",
+  author = c(
+    person("Jeffrey", "Pisklak", , email = "pisklak@ualberta.ca", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-5465-7978")),
+    person("Roger", "Dunn", role = "aut"),
+    person("Margaret", "McDevitt", role = "aut"),
+    person("Marcia", "Spetch", role = "aut")
+  ),
+  year = year,
+  note = pkg_ver,
+  url = "https://jpisklak.github.io/SiGN",
+  doi = "10.5281/zenodo.15955616"
+)
