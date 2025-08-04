@@ -1,0 +1,84 @@
+#' Suboptimal Choice Data from Dunn et al. (2024)
+#'
+#' This data set contains suboptimal choice data from multiple
+#' published studies. The data was compiled by Dunn et al. (2024).
+#'
+#' @format A data frame with 330 rows and 44 columns:
+#' \describe{
+#'   \item{row}{Row index.}
+#'   \item{study}{Short identifier for the study from which the data and
+#'   parameters were extracted.}
+#'   \item{year}{Year the study was published.}
+#'   \item{species}{Species tested in the experiment (e.g., pigeon or starling).}
+#'   \item{strain}{Strain of rat used.}
+#'   \item{sex}{Sex of subjects (M = Male, F = Female, MF = Males and Females).}
+#'   \item{sex_MF_ratio}{Ratio of Males to Females.}
+#'   \item{age}{Age of subjects.}
+#'   \item{exp}{Experiment number as reported in the original study. Values
+#'   joined by an '&' indicate that data were aggregated across experiments.}
+#'   \item{condition}{Short label used to identify conditions within each
+#'   study, aiding in dataset assembly.}
+#'   \item{n}{Number of subjects in the condition.}
+#'   \item{cp}{Observed choice proportion reported by the study.}
+#'   \item{il_dur_a, il_dur_b}{Average programmed initial link (IL) durations
+#'   for alternatives A and B, respectively. FR1 schedules are assigned a
+#'   duration of 1; other fixed-ratio schedules are given a duration
+#'   of \eqn{1 + (\text{ratio}/\text{run rate})}.}
+#'   \item{tl_dur_a1, tl_dur_a2, tl_dur_b1, tl_dur_b2}{Average programmed
+#'   durations of terminal links. For example, `tl_dur_a1` corresponds to the
+#'   first terminal link on alternative A.}
+#'   \item{tl_p_a1, tl_p_a2, tl_p_b1, tl_p_b2}{Probability of entering each
+#'   respective terminal link.}
+#'   \item{tr_p_a1, tr_p_a2, tr_p_b1, tr_p_b2}{Probability of terminal (i.e.,
+#'   primary) reinforcement following entry into each respective terminal link.}
+#'   \item{il_sched_a, il_sched_b}{Schedule type used for the initial links
+#'   (e.g., VI, FR).}
+#'   \item{tl_sched_a1, tl_sched_a2, tl_sched_b1, tl_sched_b2}{Schedule type used for each terminal link.}
+#'   \item{operant_response}{Description of the behavioural response required to make a choice and thus obtain terminal reinforcement.}
+#'   \item{forced_exposure}{Ordinal variable describing the amount of forced exposure (FE) trials used in the study. See \code{Details}.}
+#'   \item{deprive_lvl}{Deprivation level for the subjects in each condition, expressed as a percentage of their free-feeding body weight.}
+#'   \item{il_stim}{Description of initial link stimulus used.}
+#'   \item{tl_s_splus_stim}{Description of S+ terminal link stimulus used.}
+#'   \item{tl_s_minus_stim}{Description of S- terminal link stimulus used.}
+#'   \item{tl_unsig_stim}{Description of the unsignalled (optimal)
+#'   alternative's terminal link stimulus used.}
+#'   \item{term_rein}{Description of the terminal (i.e., primary or unconditioned) reinforcer used in the study (e.g., piece of cereal; images of
+#'   female models).}
+#'   \item{term_rein_cat}{Broad category of the terminal reinforcer (e.g.,
+#'   food, sexualized imagery), providing a more general classification of
+#'   `term_rein`.}
+#'   \item{DOI}{Digital Object Identifier (DOI) for the original study.}
+#'   \item{ref}{Full bibliographic reference for the study.}
+#'   \item{data_version}{A character column specifying the dataset version
+#'   based on the date it was last manually curated or corrected
+#'   (e.g., "2025-07-20"). Used for tracking updates to the compiled data.}
+#' }
+#'
+#' @details
+#' This data set reflects a merged and corrected version of the three
+#' separate data files originally provided by Dunn et al. (2024) via the
+#' Open Science Framework (OSF). The original files supplied to the OSF
+#' contained some numeric values that were inadvertently over-rounded. These
+#' values have been corrected in this version to restore their intended
+#' precision.
+#'
+#' *No FE:* Did not include any FE trials;
+#' Only 1 FE session at the start of the condition;
+#' FE trials for only some subjects.
+#'
+#' *Few FE:* 4 - 20 FE trials at the start of each session;
+#' 6 - 12 sessions of FE at the start of the first condition in the experiment;
+#' 2 sessions at the start of each condition.
+#'
+#' *Lots of FE:* FE trial following every suboptimal blackout; At least 50% of all trials were FE.
+#'
+#' @source
+#' Dunn, R. M., Pisklak, J. M., McDevitt, M. A., & Spetch, M. L. (2024).
+#' Suboptimal choice: A review and quantification of the signal for good news
+#' (SiGN) model. *Psychological Review*. *131*(1), 58-78.
+#' \url{https://doi.org/10.1037/rev0000416}
+#'
+#' Dunn, R. M., Pisklak, J. M., McDevitt, M. A., & Spetch, M. L. (2024). The
+#' signals for good news (sign) model data and code repository. *Open Science
+#' Framework*. \url{https://doi.org/10.17605/OSF.IO/39QTJ}
+"subopt_full"
