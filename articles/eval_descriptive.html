@@ -301,13 +301,15 @@ correlation—and hence the <span class="math inline">\(R^2\)</span>—should ap
 scatterplot of observed versus predicted values showed a strong linear
 trend, with a slope near 1 and intercept near 0.</p>
 <p>At first glance, this suggests excellent model performance. However,
-this approach reflects only the strength of linear association—it does
+this approach, which has often been the standard in the choice
+literature, reflects only the strength of linear association. It does
 not assess how well the predictions actually replicate the observed
 data, nor does it validate the model’s theoretical assumptions. In this
 context, a high correlation-based <span class="math inline">\(R^2\)</span> may signal superficial agreement
 rather than meaningful fit.</p>
-<p>A more appropriate alternative would have been to compute an <span class="math inline">\(R^2\)</span> based on residual error from the
-predictive model itself (Kvålseth, 1985)—the version detailed in
+<p>A stronger assessment of the model would have been to compute an
+<span class="math inline">\(R^2\)</span> based on residual error from
+the predictive model itself (Kvålseth, 1985)—the version detailed in
 Equation 1 above. While this residual-based <span class="math inline">\(R^2\)</span> also has limitations (as discussed
 earlier), it offers a more direct measure of predictive accuracy.</p>
 <p>For these reasons, many researchers recommend placing greater weight
@@ -332,11 +334,6 @@ maximised likelihoods and penalise model flexibility—are not strictly
 from a published study. Columns 9 through 24 correspond directly to
 parameters required by the <code><a href="../reference/choice_params.html">choice_params()</a></code> function. (For
 full details, consult the <code>subopt_avian</code> documentation.)</p>
-<p>Each row in the <code>subopt_avian</code> data set represents a
-distinct experimental condition from a published suboptimal choice
-study. Columns 9 through 24 provide the parameters needed by the
-<code><a href="../reference/choice_params.html">choice_params()</a></code> function (see the <code>subopt_avian</code>
-documentation for full details).</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/SiGN-R/SiGN" class="external-link">SiGN</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">subopt_avian</span><span class="op">)</span></span>
