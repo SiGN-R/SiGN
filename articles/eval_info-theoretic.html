@@ -6,7 +6,18 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Information-Theoretic Statistics • SiGN</title>
-<script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
+<link rel="icon" type="”image/svg+xml”" href="../favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="icon" sizes="any" href="../favicon.ico">
+<link rel="manifest" href="../site.webmanifest">
+<!-- mathjax math --><script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script><script>
+  window.MathJax = {
+    chtml: {
+      fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
+    }
+  };
+</script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
@@ -34,12 +45,17 @@
 <li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="../articles/batch-predict.html">Predictions From Data Frames</a></li>
+<li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Basics</h6></li>
+    <li><a class="dropdown-item" href="../articles/squires_fantino.html">Classic Concurrent-Chains</a></li>
+    <li><a class="dropdown-item" href="../articles/batch-predict.html">Predictions From Data Frames</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Model Evaluation</h6></li>
     <li><a class="dropdown-item" href="../articles/eval_descriptive.html">Descriptive Statistics</a></li>
     <li><a class="dropdown-item" href="../articles/eval_info-theoretic.html">Information-Theoretic Statistics</a></li>
-    <li><a class="dropdown-item" href="../articles/squires_fantino.html">Classic Concurrent-Chains</a></li>
   </ul>
 </li>
+<li class="nav-item"><a class="external-link nav-link" href="https://jpisklak.shinyapps.io/SiGN_Calc/">Online Calculator</a></li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><form class="form-inline" role="search">
@@ -70,10 +86,9 @@
 <p>In many scientific contexts, it is not enough to assess how well a
 model fits the data; we also need to compare competing models and
 determine which offers the most parsimonious and explanatory account of
-the observed behaviour. Descriptive metrics such as RMSE or
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>R</mi><mn>2</mn></msup><annotation encoding="application/x-tex">R^2</annotation></semantics></math>
-can provide insight into absolute fit but do not account for model
-complexity—and are not grounded in likelihood theory.</p>
+the observed behaviour. Descriptive metrics such as RMSE or <span class="math inline">\(R^2\)</span> can provide insight into absolute fit
+but do not account for model complexity—and are not grounded in
+likelihood theory.</p>
 <p>This vignette introduces a set of information-theoretic model
 comparison tools for available via the <code>$info_criteria</code>
 output of the <code><a href="../reference/choice_mod_eval.html">choice_mod_eval()</a></code> function. These
@@ -134,14 +149,12 @@ by revisiting a real-world case study from Dunn et al. (2024).</p>
 </h3>
 <p>As described in the companion article (<a href="eval_descriptive.html">Model Evaluation: Descriptive
 Statistics</a>), Dunn et al. (2024) evaluated model performance using
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>R</mi><mn>2</mn></msup><annotation encoding="application/x-tex">R^2</annotation></semantics></math>
-values derived from linear regressions of observed versus predicted
-choice proportions. Their analysis was applied to the full SiGN model as
-well as two simplified variants: one omitting the model’s
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>β</mi><annotation encoding="application/x-tex">\beta</annotation></semantics></math>
-term, and one excluding the bonus delay reduction component.</p>
-<p>In addition to reporting
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>R</mi><mn>2</mn></msup><annotation encoding="application/x-tex">R^2</annotation></semantics></math>
+<span class="math inline">\(R^2\)</span> values derived from linear
+regressions of observed versus predicted choice proportions. Their
+analysis was applied to the full SiGN model as well as two simplified
+variants: one omitting the model’s <span class="math inline">\(\beta\)</span> term, and one excluding the bonus
+delay reduction component.</p>
+<p>In addition to reporting <span class="math inline">\(R^2\)</span>
 values, the original analysis included Bayes Factors derived from
 regression-based log-likelihoods. In this vignette, we use the SiGN R
 package to demonstrate a more principled approach—grounded in likelihood
@@ -157,10 +170,8 @@ evaluated in Dunn et al. (2024):</p>
 <ol style="list-style-type: decimal">
 <li><p>The <strong>full SiGN model</strong>, which includes all
 terms;</p></li>
-<li><p>A <strong>no-β</strong> variant, in which the
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>β</mi><annotation encoding="application/x-tex">\beta</annotation></semantics></math>
-parameter is disabled (removing its influence on weighting conditional
-vs. terminal reinforcement);</p></li>
+<li><p>A <strong>no-β</strong> variant, in which the <span class="math inline">\(\beta\)</span> parameter is disabled (removing its
+influence on weighting conditional vs. terminal reinforcement);</p></li>
 <li><p>A <strong>no-bonus</strong> variant, in which the model omits the
 bonus delay reduction component that defines suboptimal choice scenarios
 in the SiGN framework.</p></li>
@@ -220,30 +231,28 @@ itself to data. To enable likelihood-based comparisons between the three
 model variants, we must introduce a statistical assumption about the
 distribution of errors—that is, how observed outcomes might deviate from
 the model’s predictions.</p>
-<p>In their original analysis, Dunn et al. used
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>R</mi><mn>2</mn></msup><annotation encoding="application/x-tex">R^2</annotation></semantics></math>
-values derived from linear regressions on observed versus predicted
-values as a descriptive measure of fit. This approach implicitly assumes
-that residuals are normally distributed and homoscedastic:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ε</mi><mi>i</mi></msub><mo>=</mo><msub><mi>y</mi><mi>i</mi></msub><mo>−</mo><mover><msub><mi>y</mi><mi>i</mi></msub><mo accent="true">̂</mo></mover><mo>∼</mo><mi>𝒩</mi><mrow><mo stretchy="true" form="prefix">(</mo><mn>0</mn><mo>,</mo><msup><mi>σ</mi><mn>2</mn></msup><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">
+<p>In their original analysis, Dunn et al. used <span class="math inline">\(R^2\)</span> values derived from linear
+regressions on observed versus predicted values as a descriptive measure
+of fit. This approach implicitly assumes that residuals are normally
+distributed and homoscedastic:</p>
+<p><span class="math display">\[
 \varepsilon_i = y_i - \hat{y_i} \sim \mathcal{N}(0, \sigma^2)
-</annotation></semantics></math></p>
+\]</span></p>
 <p>It follows from this that the observed values are normally
 distributed around the predicted values:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>y</mi><mi>i</mi></msub><mo>∼</mo><mi>𝒩</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mover><mi>y</mi><mo accent="true">̂</mo></mover><mi>i</mi></msub><mo>,</mo><msup><mi>σ</mi><mn>2</mn></msup><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">
+<p><span class="math display">\[
 y_i \sim \mathcal{N}(\hat{y}_i, \sigma^2)
-</annotation></semantics></math></p>
+\]</span></p>
 <ul>
-<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>ε</mi><mi>i</mi></msub><annotation encoding="application/x-tex">\varepsilon_i</annotation></semantics></math>:
+<li><p><span class="math inline">\(\varepsilon_i\)</span>:
 residual</p></li>
-<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>y</mi><mi>i</mi></msub><annotation encoding="application/x-tex">y_i</annotation></semantics></math>
-= observed choice proportion for row
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
-in <code>subopt_avian</code>.</p></li>
-<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mover><mi>y</mi><mo accent="true">̂</mo></mover><mi>i</mi></msub><annotation encoding="application/x-tex">\hat{y}_i</annotation></semantics></math>
-= model-predicted choice proportion.</p></li>
-<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>σ</mi><mn>2</mn></msup><annotation encoding="application/x-tex">\sigma^2</annotation></semantics></math>
-= an unknown error variance estimated from the residuals.</p></li>
+<li><p><span class="math inline">\(y_i\)</span> = observed choice
+proportion for row <span class="math inline">\(i\)</span> in
+<code>subopt_avian</code>.</p></li>
+<li><p><span class="math inline">\(\hat{y}_i\)</span> = model-predicted
+choice proportion.</p></li>
+<li><p><span class="math inline">\(\sigma^2\)</span> = an unknown error
+variance estimated from the residuals.</p></li>
 </ul>
 <p>This assumption is widespread—not only in statistical analyses
 generally, but also within the suboptimal choice literature, where
@@ -266,63 +275,48 @@ only on the interval (0, 1). It is also highly flexible: depending on
 its parameters, it can take on uniform, bell-shaped, U-shaped, or skewed
 forms.</p>
 <p>The Beta distribution is typically parameterised with two shape
-parameters,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>β</mi><annotation encoding="application/x-tex">\beta</annotation></semantics></math>:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>y</mi><mi>i</mi></msub><mo>∼</mo><mtext mathvariant="normal">Beta</mtext><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>α</mi><mi>i</mi></msub><mo>,</mo><mspace width="0.222em"></mspace><msub><mi>β</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">
+parameters, <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>:</p>
+<p><span class="math display">\[
 y_i \sim \text{Beta}(\alpha_i,\ \beta_i)
-</annotation></semantics></math></p>
+\]</span></p>
 <p>This unfortunately introduces some potential for confusion, as the
-SiGN model also includes a parameter called
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>β</mi><annotation encoding="application/x-tex">\beta</annotation></semantics></math>—but
-the two are unrelated.</p>
+SiGN model also includes a parameter called <span class="math inline">\(\beta\)</span>—but the two are unrelated.</p>
 <p>For the error model, we will assume that each observed choice
-proportion
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>y</mi><mi>i</mi></msub><annotation encoding="application/x-tex">y_i</annotation></semantics></math>
-arises from a Beta distribution centered around the SiGN model’s
-prediction (i.e.,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>μ</mi><mi>i</mi></msub><mo>=</mo><msub><mover><mi>y</mi><mo accent="true">̂</mo></mover><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">\mu_i = \hat{y}_i</annotation></semantics></math>),
-with constant precision
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ϕ</mi><annotation encoding="application/x-tex">\phi</annotation></semantics></math>.
-Under this assumption, the two shape parameters become:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>α</mi><mi>i</mi></msub><mo>=</mo><msub><mi>μ</mi><mi>i</mi></msub><mo>⋅</mo><mi>ϕ</mi><mo>,</mo><mspace width="1.0em"></mspace><msub><mi>β</mi><mi>i</mi></msub><mo>=</mo><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>μ</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>⋅</mo><mi>ϕ</mi></mrow><annotation encoding="application/x-tex">
+proportion <span class="math inline">\(y_i\)</span> arises from a Beta
+distribution centered around the SiGN model’s prediction (i.e., <span class="math inline">\(\mu_i = \hat{y}_i\)</span>), with constant
+precision <span class="math inline">\(\phi\)</span>. Under this
+assumption, the two shape parameters become:</p>
+<p><span class="math display">\[
 \alpha_i = \mu_i \cdot \phi, \quad \beta_i = (1 - \mu_i) \cdot \phi
-</annotation></semantics></math></p>
+\]</span></p>
 <p>So the error model can be written more specifically as:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>y</mi><mi>i</mi></msub><mo>∼</mo><mtext mathvariant="normal">Beta</mtext><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>μ</mi><mi>i</mi></msub><mo>⋅</mo><mi>ϕ</mi><mo>,</mo><mspace width="0.222em"></mspace><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>μ</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>⋅</mo><mi>ϕ</mi><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">
+<p><span class="math display">\[
 y_i \sim \text{Beta}(\mu_i \cdot \phi,\ (1 - \mu_i) \cdot \phi)
-</annotation></semantics></math></p>
+\]</span></p>
 <ul>
-<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>y</mi><mi>i</mi></msub><annotation encoding="application/x-tex">y_i</annotation></semantics></math>:
-observed choice proportion.</p></li>
-<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>μ</mi><mi>i</mi></msub><annotation encoding="application/x-tex">\mu_i</annotation></semantics></math>:
-SiGN model’s-predicted choice proportion.</p></li>
-<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ϕ</mi><annotation encoding="application/x-tex">\phi</annotation></semantics></math>:
-precision parameter (shared across all data points).</p></li>
+<li><p><span class="math inline">\(y_i\)</span>: observed choice
+proportion.</p></li>
+<li><p><span class="math inline">\(\mu_i\)</span>: SiGN
+model’s-predicted choice proportion.</p></li>
+<li><p><span class="math inline">\(\phi\)</span>: precision parameter
+(shared across all data points).</p></li>
 </ul>
 <p>This formulation reframes error not as a residual, but as variability
 around a prediction. Each observation is treated as a random draw from a
 Beta distribution whose mean is the SiGN model’s prediction. The spread
-of this distribution reflects uncertainty in fit: when
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ϕ</mi><annotation encoding="application/x-tex">\phi</annotation></semantics></math>
-is large, predictions are tightly clustered around
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>μ</mi><mi>i</mi></msub><annotation encoding="application/x-tex">\mu_i</annotation></semantics></math>;
-when small, the distribution is more diffuse.</p>
+of this distribution reflects uncertainty in fit: when <span class="math inline">\(\phi\)</span> is large, predictions are tightly
+clustered around <span class="math inline">\(\mu_i\)</span>; when small,
+the distribution is more diffuse.</p>
 <div class="section level3">
 <h3 id="visualising-beta-error-shapes">Visualising Beta Error Shapes<a class="anchor" aria-label="anchor" href="#visualising-beta-error-shapes"></a>
 </h3>
 <p>To illustrate how the shape of the Beta distribution changes with the
-prediction
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>,
-the plot below shows simulated distributions for five representative
-choice proportion values. When
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mo>=</mo><mn>0.1</mn></mrow><annotation encoding="application/x-tex">\mu = 0.1</annotation></semantics></math>,
-the distribution is strongly positively skewed (a floor effect). At
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mo>=</mo><mn>0.5</mn></mrow><annotation encoding="application/x-tex">\mu = 0.5</annotation></semantics></math>,
-the distribution is symmetric. Near
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mo>=</mo><mn>0.9</mn></mrow><annotation encoding="application/x-tex">\mu = 0.9</annotation></semantics></math>,
-the pattern reverses, with increasing negative skew.</p>
+prediction <span class="math inline">\(\mu\)</span>, the plot below
+shows simulated distributions for five representative choice proportion
+values. When <span class="math inline">\(\mu = 0.1\)</span>, the
+distribution is strongly positively skewed (a floor effect). At <span class="math inline">\(\mu = 0.5\)</span>, the distribution is symmetric.
+Near <span class="math inline">\(\mu = 0.9\)</span>, the pattern
+reverses, with increasing negative skew.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
 <span></span>
@@ -369,25 +363,20 @@ often violated in behavioural data.</p>
 </h3>
 <p>The Beta distribution also exhibits a characteristic pattern where
 variance decreases near the boundaries (0 or 1) and peaks at the
-midpoint
-(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mo>=</mo><mn>0.5</mn></mrow><annotation encoding="application/x-tex">\mu = 0.5</annotation></semantics></math>).
-This is because the variance of a Beta distribution depends on both the
-mean
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>
-and precision
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ϕ</mi><annotation encoding="application/x-tex">\phi</annotation></semantics></math>.
-This mean-dependent variance helps explain why the Beta model is well
-suited for choice data: it captures the intuition that variability is
-greatest when choice is uncertain (near 0.5) and smallest when choice is
-near-deterministic (near 0 or 1).</p>
+midpoint (<span class="math inline">\(\mu = 0.5\)</span>). This is
+because the variance of a Beta distribution depends on both the mean
+<span class="math inline">\(\mu\)</span> and precision <span class="math inline">\(\phi\)</span>. This mean-dependent variance helps
+explain why the Beta model is well suited for choice data: it captures
+the intuition that variability is greatest when choice is uncertain
+(near 0.5) and smallest when choice is near-deterministic (near 0 or
+1).</p>
 <p>From Soch, et al. (2024), the variance of a beta distribution is:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">Var</mtext><mrow><mo stretchy="true" form="prefix">(</mo><mi>X</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mfrac><mrow><mi>α</mi><mi>β</mi></mrow><mrow><mrow><mo stretchy="true" form="prefix">(</mo><mi>α</mi><mo>+</mo><mi>β</mi><mo>+</mo><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow><mo>⋅</mo><msup><mrow><mo stretchy="true" form="prefix">(</mo><mi>α</mi><mo>+</mo><mi>β</mi><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup></mrow></mfrac></mrow><annotation encoding="application/x-tex">
-\text{Var}(X) = \frac{\alpha\beta}{(\alpha + \beta + 1) \cdot (\alpha + \beta)^2}
-</annotation></semantics></math></p>
+<p><span class="math display">\[
+\text{Var}(X) = \frac{\alpha\beta}{(\alpha + \beta + 1) \cdot (\alpha +
+\beta)^2}
+\]</span></p>
 <p>The following plot shows how the variance changes as a function of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>,
-assuming a constant
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ϕ</mi><mo>=</mo><mn>10</mn></mrow><annotation encoding="application/x-tex">\phi = 10</annotation></semantics></math>:</p>
+<span class="math inline">\(\mu\)</span>, assuming a constant <span class="math inline">\(\phi = 10\)</span>:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Parameters</span></span>
 <span><span class="va">mu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0.001</span>, <span class="fl">0.999</span>, by <span class="op">=</span> <span class="fl">0.001</span><span class="op">)</span></span>
@@ -408,51 +397,38 @@ assuming a constant
 <p><img src="eval_info-theoretic_files/figure-html/unnamed-chunk-7-1.png" width="50%" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
-<h3 id="estimating-a-value-for-phi">Estimating a Value for
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ϕ</mi><annotation encoding="application/x-tex">\phi</annotation></semantics></math><a class="anchor" aria-label="anchor" href="#estimating-a-value-for-phi"></a>
+<h3 id="estimating-a-value-for-phi">Estimating a Value for <span class="math inline">\(\phi\)</span><a class="anchor" aria-label="anchor" href="#estimating-a-value-for-phi"></a>
 </h3>
 <p>The Beta distribution used in our error model includes a precision
-parameter,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ϕ</mi><annotation encoding="application/x-tex">\phi</annotation></semantics></math>,
-which governs how tightly the observed values are expected to cluster
-around the model’s predictions. This plays a role analogous to variance
-(e.g.,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>σ</mi><mn>2</mn></msup><annotation encoding="application/x-tex">\sigma^2</annotation></semantics></math>)
-in Gaussian models—except that here, larger values of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ϕ</mi><annotation encoding="application/x-tex">\phi</annotation></semantics></math>
-imply lower variability.</p>
-<p>Rather than choosing
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ϕ</mi><annotation encoding="application/x-tex">\phi</annotation></semantics></math>
+parameter, <span class="math inline">\(\phi\)</span>, which governs how
+tightly the observed values are expected to cluster around the model’s
+predictions. This plays a role analogous to variance (e.g., <span class="math inline">\(\sigma^2\)</span>) in Gaussian models—except that
+here, larger values of <span class="math inline">\(\phi\)</span> imply
+lower variability.</p>
+<p>Rather than choosing <span class="math inline">\(\phi\)</span>
 arbitrarily, we estimate it from the data using maximum likelihood
-estimation. This approach finds the value of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ϕ</mi><annotation encoding="application/x-tex">\phi</annotation></semantics></math>
-that makes the observed data most probable under the assumed Beta error
-model.</p>
+estimation. This approach finds the value of <span class="math inline">\(\phi\)</span> that makes the observed data most
+probable under the assumed Beta error model.</p>
 <p>In this context, the <strong>likelihood</strong> quantifies how well
-the model—with a given value of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ϕ</mi><annotation encoding="application/x-tex">\phi</annotation></semantics></math>—explains
-the observed choice proportions. A higher likelihood means better
-alignment between model and data. In practice, we minimise the negative
-log-likelihood, which simplifies optimisation and improves numerical
-stability.</p>
+the model—with a given value of <span class="math inline">\(\phi\)</span>—explains the observed choice
+proportions. A higher likelihood means better alignment between model
+and data. In practice, we minimise the negative log-likelihood, which
+simplifies optimisation and improves numerical stability.</p>
 <p>The <code>$phi</code> column returned by
-<code><a href="../reference/choice_mod_eval.html">choice_mod_eval()</a></code> contains the estimated value of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ϕ</mi><annotation encoding="application/x-tex">\phi</annotation></semantics></math>
-obtained via this method. Below, we walk through a manual version of
-this calculation using the full SiGN model.</p>
+<code><a href="../reference/choice_mod_eval.html">choice_mod_eval()</a></code> contains the estimated value of <span class="math inline">\(\phi\)</span> obtained via this method. Below, we
+walk through a manual version of this calculation using the full SiGN
+model.</p>
 <div class="section level4">
-<h4 id="estimating-phi-for-the-full-model-in-r">Estimating
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ϕ</mi><annotation encoding="application/x-tex">\phi</annotation></semantics></math>
-for the Full Model in R<a class="anchor" aria-label="anchor" href="#estimating-phi-for-the-full-model-in-r"></a>
+<h4 id="estimating-phi-for-the-full-model-in-r">Estimating <span class="math inline">\(\phi\)</span> for the Full
+Model in R<a class="anchor" aria-label="anchor" href="#estimating-phi-for-the-full-model-in-r"></a>
 </h4>
-<p>When estimating
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ϕ</mi><annotation encoding="application/x-tex">\phi</annotation></semantics></math>,
-a small technical complication arises with the Beta distribution:
-specifically, it is only defined for values strictly between 0 and 1.
-Because both the observed and predicted choice proportions are allowed
-to include values at the boundaries (e.g., 0 or 1), we need to apply a
-continuity correction to ensure numerical stability. This adjustment is
-used only for likelihood calculations—the original values are retained
+<p>When estimating <span class="math inline">\(\phi\)</span>, a small
+technical complication arises with the Beta distribution: specifically,
+it is only defined for values strictly between 0 and 1. Because both the
+observed and predicted choice proportions are allowed to include values
+at the boundaries (e.g., 0 or 1), we need to apply a continuity
+correction to ensure numerical stability. This adjustment is used only
+for likelihood calculations—the original values are retained
 elsewhere.</p>
 <p>In the <code>subopt_avian</code> dataset, the observed proportions
 often come close to 0 and 1 but do not actually reach them. However, the
@@ -483,9 +459,8 @@ said, for most applications involving behavioural data, a default of
 <code>epsilon = 0.001</code> is likely to be both reasonable.</p>
 <p>Next, we define the negative log-likelihood function for the Beta
 distribution and use R’s <code><a href="https://rdrr.io/r/stats/optimize.html" class="external-link">optimize()</a></code> function to find the
-value of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ϕ</mi><annotation encoding="application/x-tex">\phi</annotation></semantics></math>
-that minimises it:</p>
+value of <span class="math inline">\(\phi\)</span> that minimises
+it:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Define negative log-likelihood</span></span>
 <span><span class="va">neg_loglik</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">phi</span>, <span class="va">y</span>, <span class="va">mu</span><span class="op">)</span> <span class="op">{</span></span>
@@ -499,36 +474,30 @@ that minimises it:</p>
 <span><span class="va">phi_est</span> <span class="op">&lt;-</span> <span class="va">optim_result</span><span class="op">$</span><span class="va">minimum</span></span>
 <span><span class="va">phi_est</span></span>
 <span><span class="co">#&gt; [1] 8.698582</span></span></code></pre></div>
-<p>As mentioned earlier, this estimated
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ϕ</mi><annotation encoding="application/x-tex">\phi</annotation></semantics></math>
-quantifies the model’s precision under the Beta error model—that is, how
-tightly the observed values cluster around the predictions from the full
-SiGN model. A higher value suggests that the observed choice proportions
-are tightly clustered around the predicted values, while a lower value
-indicates greater variability or model misfit.</p>
+<p>As mentioned earlier, this estimated <span class="math inline">\(\phi\)</span> quantifies the model’s precision
+under the Beta error model—that is, how tightly the observed values
+cluster around the predictions from the full SiGN model. A higher value
+suggests that the observed choice proportions are tightly clustered
+around the predicted values, while a lower value indicates greater
+variability or model misfit.</p>
 </div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="computing-the-total-log-likelihood">Computing the Total Log-Likelihood<a class="anchor" aria-label="anchor" href="#computing-the-total-log-likelihood"></a>
 </h2>
-<p>Once we’ve estimated the optimal value of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ϕ</mi><annotation encoding="application/x-tex">\phi</annotation></semantics></math>
-we can compute the total log-likelihood, which quantifies how well the
-model—given its predictions and the fitted precision parameter—accounts
-for the observed data.</p>
-<p>Specifically, for each observed value
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>y</mi><mi>i</mi></msub><annotation encoding="application/x-tex">y_i</annotation></semantics></math>,
-we evaluate the logarithm of the Beta probability density function,
-using the model’s predicted mean
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>μ</mi><mi>i</mi></msub><annotation encoding="application/x-tex">\mu_i</annotation></semantics></math>
-and shape parameters derived from
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ϕ</mi><annotation encoding="application/x-tex">\phi</annotation></semantics></math>.
-Summing these values across all observations yields the total
-log-likelihood:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>log</mo><mi>L</mi><mo>=</mo><mo>∑</mo><mo>log</mo><mrow><mo stretchy="true" form="prefix">[</mo><mtext mathvariant="normal">Beta</mtext><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>y</mi><mi>i</mi></msub><mo stretchy="false" form="prefix">|</mo><msub><mi>α</mi><mi>i</mi></msub><mo>,</mo><msub><mi>β</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">]</mo></mrow></mrow><annotation encoding="application/x-tex">
+<p>Once we’ve estimated the optimal value of <span class="math inline">\(\phi\)</span> we can compute the total
+log-likelihood, which quantifies how well the model—given its
+predictions and the fitted precision parameter—accounts for the observed
+data.</p>
+<p>Specifically, for each observed value <span class="math inline">\(y_i\)</span>, we evaluate the logarithm of the
+Beta probability density function, using the model’s predicted mean
+<span class="math inline">\(\mu_i\)</span> and shape parameters derived
+from <span class="math inline">\(\phi\)</span>. Summing these values
+across all observations yields the total log-likelihood:</p>
+<p><span class="math display">\[
 \log L = \sum \log[\text{Beta}(y_i | \alpha_i, \beta_i)]
-</annotation></semantics></math></p>
+\]</span></p>
 <p>The <code>$logLik</code> column returned by
 <code><a href="../reference/choice_mod_eval.html">choice_mod_eval()</a></code> reports this value automatically. Below,
 we replicate the calculation manually for the full model, using the
@@ -546,10 +515,9 @@ corrected predictions (<code>mu</code>) and observed values
 <span><span class="va">LL_full</span></span>
 <span><span class="co">#&gt; [1] -16.70615</span></span></code></pre></div>
 <p>This total log-likelihood represents the joint plausibility of the
-observed data under the full SiGN model with fitted
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ϕ</mi><annotation encoding="application/x-tex">\phi</annotation></semantics></math>.
-It is the foundational quantity from which information-theoretic metrics
-like AIC and BIC are derived.</p>
+observed data under the full SiGN model with fitted <span class="math inline">\(\phi\)</span>. It is the foundational quantity
+from which information-theoretic metrics like AIC and BIC are
+derived.</p>
 </div>
 <div class="section level2">
 <h2 id="comparing-the-models">Comparing the Models<a class="anchor" aria-label="anchor" href="#comparing-the-models"></a>
@@ -561,38 +529,31 @@ Akaike Information Criterion (AIC) or Bayesian Information Criterion
 but they also include penalties for model complexity—discouraging
 overfitting. BIC imposes a stronger penalty than AIC.</p>
 <p>In this context, “model complexity” is measured by the number of free
-parameters
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>.
-The equations for AIC and BIC are:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right"><mtext mathvariant="normal">AIC</mtext></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mn>2</mn><mi>k</mi><mo>−</mo><mn>2</mn><mo>log</mo><mi>L</mi></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right"><mtext mathvariant="normal">BIC</mtext></mtd><mtd columnalign="left" style="text-align: left"><mo>=</mo><mo>log</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>n</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>⋅</mo><mi>k</mi><mo>−</mo><mn>2</mn><mo>log</mo><mi>L</mi></mtd></mtr></mtable><annotation encoding="application/x-tex">
+parameters <span class="math inline">\(k\)</span>. The equations for AIC
+and BIC are:</p>
+<p><span class="math display">\[
 \begin{aligned}
 \text{AIC} &amp;= 2k - 2\log L \\
 \text{BIC} &amp;= \log(n) \cdot k - 2\log L
 \end{aligned}
-</annotation></semantics></math></p>
+\]</span></p>
 <ul>
-<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>log</mo><mi>L</mi></mrow><annotation encoding="application/x-tex">\log L</annotation></semantics></math>
-is the log-likelihood.</p></li>
-<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
-is the number of estimated parameters (1 in this case).</p></li>
-<li><p><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
-is the number of observations.</p></li>
+<li><p><span class="math inline">\(\log L\)</span> is the
+log-likelihood.</p></li>
+<li><p><span class="math inline">\(k\)</span> is the number of estimated
+parameters (1 in this case).</p></li>
+<li><p><span class="math inline">\(n\)</span> is the number of
+observations.</p></li>
 </ul>
 <p>Although none of the three models include free parameters in their
-predictive structure, the precision parameter
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ϕ</mi><annotation encoding="application/x-tex">\phi</annotation></semantics></math>
-in the Beta error model is estimated from the data. This means that, for
-likelihood-based model comparison, each model is effectively treated as
-having one free parameter.</p>
-<p>Because
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">k = 1</annotation></semantics></math>
-is the same for all three models, the penalty terms
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>k</mi></mrow><annotation encoding="application/x-tex">2k</annotation></semantics></math>
-(AIC) and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>log</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>n</mi><mo stretchy="true" form="postfix">)</mo></mrow><mo>⋅</mo><mi>k</mi></mrow><annotation encoding="application/x-tex">\log(n) \cdot k</annotation></semantics></math>
-(BIC) are constant across models and do not affect their relative
-rankings. In such cases, model selection based on AIC, BIC, or
-log-likelihood alone will lead to the same conclusions.</p>
+predictive structure, the precision parameter <span class="math inline">\(\phi\)</span> in the Beta error model is estimated
+from the data. This means that, for likelihood-based model comparison,
+each model is effectively treated as having one free parameter.</p>
+<p>Because <span class="math inline">\(k = 1\)</span> is the same for
+all three models, the penalty terms <span class="math inline">\(2k\)</span> (AIC) and <span class="math inline">\(\log(n) \cdot k\)</span> (BIC) are constant across
+models and do not affect their relative rankings. In such cases, model
+selection based on AIC, BIC, or log-likelihood alone will lead to the
+same conclusions.</p>
 <div class="section level3">
 <h3 id="extracting-likelihood-information">Extracting Likelihood Information<a class="anchor" aria-label="anchor" href="#extracting-likelihood-information"></a>
 </h3>
@@ -614,8 +575,7 @@ obtain log-likelihood, AIC, and BIC values for each model.</p>
 <span><span class="co">#&gt; 1            1 2.387355 -212.1828 426.3657 429.2177</span></span></code></pre></div>
 <p>Although we pass <code>k = 0</code> to the function, the
 implementation automatically adds 1 internally to account for the
-estimated precision parameter
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ϕ</mi><annotation encoding="application/x-tex">\phi</annotation></semantics></math>.
+estimated precision parameter <span class="math inline">\(\phi\)</span>.
 This design allows users to supply <code>k</code> as the number of
 parameters in the predictive model itself, while keeping the error model
 assumption consistent.</p>
@@ -648,31 +608,28 @@ another.</p>
 <p>But the magnitude of these differences is difficult to interpret
 directly. Bayes Factors solve this by transforming the difference in BIC
 scores into a ratio of support:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mtext mathvariant="normal">BF</mtext><mn>01</mn></msub><mo>≈</mo><mo>exp</mo><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mrow><mo stretchy="true" form="prefix">(</mo><msub><mtext mathvariant="normal">BIC</mtext><mn>1</mn></msub><mo>−</mo><msub><mtext mathvariant="normal">BIC</mtext><mn>0</mn></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">
+<p><span class="math display">\[
 \text{BF}_{01} \approx \exp(\frac{1}{2}(\text{BIC}_1 - \text{BIC}_0))
-</annotation></semantics></math> where:</p>
+\]</span> where:</p>
 <ul>
 <li>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mtext mathvariant="normal">BIC</mtext><mn>0</mn></msub><annotation encoding="application/x-tex">\text{BIC}_0</annotation></semantics></math>:
-The BIC value for the reduced version of the SiGN model (i.e., no bonus
-and no beta versions).</li>
+<span class="math inline">\(\text{BIC}_0\)</span>: The BIC value for
+the reduced version of the SiGN model (i.e., no bonus and no beta
+versions).</li>
 <li>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mtext mathvariant="normal">BIC</mtext><mn>1</mn></msub><annotation encoding="application/x-tex">\text{BIC}_1</annotation></semantics></math>:
-The BIC value for the full SiGN model.</li>
+<span class="math inline">\(\text{BIC}_1\)</span>: The BIC value for
+the full SiGN model.</li>
 </ul>
-<p>This formulation yields
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mtext mathvariant="normal">BF</mtext><mn>01</mn></msub><annotation encoding="application/x-tex">\text{BF}_{01}</annotation></semantics></math>,
-the evidence in favour of the reduced model. Taking the reciprocal gives
-the “inverse Bayes Factor”
-(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mtext mathvariant="normal">BF</mtext><mn>10</mn></msub><annotation encoding="application/x-tex">\text{BF}_{10}</annotation></semantics></math>),
-which, in this context, shows evidence in favour of the full model:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mtext mathvariant="normal">BF</mtext><mn>10</mn></msub><mo>=</mo><mfrac><mn>1</mn><msub><mtext mathvariant="normal">BF</mtext><mn>01</mn></msub></mfrac></mrow><annotation encoding="application/x-tex">
+<p>This formulation yields <span class="math inline">\(\text{BF}_{01}\)</span>, the evidence in favour of
+the reduced model. Taking the reciprocal gives the “inverse Bayes
+Factor” (<span class="math inline">\(\text{BF}_{10}\)</span>), which, in
+this context, shows evidence in favour of the full model:</p>
+<p><span class="math display">\[
 \text{BF}_{10} = \frac{1}{\text{BF}_{01}}
-</annotation></semantics></math></p>
-<p>A
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><msub><mi>F</mi><mn>10</mn></msub><mo>&gt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">BF_{10} &gt; 1</annotation></semantics></math>
-indicates support for the full model, with larger values implying
-stronger evidence.</p>
+\]</span></p>
+<p>A <span class="math inline">\(BF_{10} &gt; 1\)</span> indicates
+support for the full model, with larger values implying stronger
+evidence.</p>
 <p>The following table provides an interpretive scale for Bayes Factors,
 based on Jeffreys (1961):</p>
 <table class="table table table-bordered" style="width: auto !important; margin-left: auto; margin-right: auto;">
@@ -740,9 +697,7 @@ use:</p>
 <span><span class="va">bic_no_beta</span> <span class="op">&lt;-</span> <span class="va">no_beta</span><span class="op">$</span><span class="va">info_criteria</span><span class="op">$</span><span class="va">BIC</span></span>
 <span><span class="va">bic_no_bonus</span> <span class="op">&lt;-</span> <span class="va">no_bonus</span><span class="op">$</span><span class="va">info_criteria</span><span class="op">$</span><span class="va">BIC</span></span></code></pre></div>
 <div class="section level5">
-<h5 id="comparison-full-model-vs--no-beta-model">Comparison: Full Model
-vs. No-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>β</mi><annotation encoding="application/x-tex">\beta</annotation></semantics></math>
-Model<a class="anchor" aria-label="anchor" href="#comparison-full-model-vs--no-beta-model"></a>
+<h5 id="comparison-full-model-vs--no-beta-model">Comparison: Full Model vs. No-<span class="math inline">\(\beta\)</span> Model<a class="anchor" aria-label="anchor" href="#comparison-full-model-vs--no-beta-model"></a>
 </h5>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># BIC_1 = full, BIC_0 = no beta</span></span>
@@ -751,8 +706,7 @@ Model<a class="anchor" aria-label="anchor" href="#comparison-full-model-vs--no-b
 <span><span class="va">BF_10</span></span>
 <span><span class="co">#&gt; [1] 3.805395</span></span></code></pre></div>
 <p>The inverse Bayes Factor (3.81) shows good positive evidence for the
-inclusion of the SiGN model’s
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>β</mi><annotation encoding="application/x-tex">\beta</annotation></semantics></math>
+inclusion of the SiGN model’s <span class="math inline">\(\beta\)</span>
 term.</p>
 </div>
 <div class="section level5">
@@ -785,11 +739,10 @@ regressions of observed versus predicted values—their qualitative
 conclusion was ultimately correct: the full model offers the best
 account of the data.</p>
 <p>That said, their method overstated the evidence for including the
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>β</mi><annotation encoding="application/x-tex">\beta</annotation></semantics></math>
-term. The Bayes Factor analysis presented here reveals a more modest but
-consistent advantage. Still, as noted in the companion article (<a href="eval_descriptive.html">Model Evaluation: Descriptive
-Statistics</a>), the role of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>β</mi><annotation encoding="application/x-tex">\beta</annotation></semantics></math>
+<span class="math inline">\(\beta\)</span> term. The Bayes Factor
+analysis presented here reveals a more modest but consistent advantage.
+Still, as noted in the companion article (<a href="eval_descriptive.html">Model Evaluation: Descriptive
+Statistics</a>), the role of <span class="math inline">\(\beta\)</span>
 was never expected to produce dramatic shifts in the model’s
 predictions. Its relatively subtle effect should not be taken as
 evidence against its conceptual relevance.</p>

@@ -6,7 +6,18 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Descriptive Statistics • SiGN</title>
-<script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
+<link rel="icon" type="”image/svg+xml”" href="../favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="icon" sizes="any" href="../favicon.ico">
+<link rel="manifest" href="../site.webmanifest">
+<!-- mathjax math --><script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script><script>
+  window.MathJax = {
+    chtml: {
+      fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
+    }
+  };
+</script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
@@ -34,12 +45,17 @@
 <li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="../articles/batch-predict.html">Predictions From Data Frames</a></li>
+<li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Basics</h6></li>
+    <li><a class="dropdown-item" href="../articles/squires_fantino.html">Classic Concurrent-Chains</a></li>
+    <li><a class="dropdown-item" href="../articles/batch-predict.html">Predictions From Data Frames</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Model Evaluation</h6></li>
     <li><a class="dropdown-item" href="../articles/eval_descriptive.html">Descriptive Statistics</a></li>
     <li><a class="dropdown-item" href="../articles/eval_info-theoretic.html">Information-Theoretic Statistics</a></li>
-    <li><a class="dropdown-item" href="../articles/squires_fantino.html">Classic Concurrent-Chains</a></li>
   </ul>
 </li>
+<li class="nav-item"><a class="external-link nav-link" href="https://jpisklak.shinyapps.io/SiGN_Calc/">Online Calculator</a></li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><form class="form-inline" role="search">
@@ -109,48 +125,43 @@ conduct additional analyses or visualizations.</p></li>
 </h2>
 <div class="section level3">
 <h3 id="r2-coefficient-of-determination">
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>R</mi><mn>2</mn></msup><annotation encoding="application/x-tex">R^2</annotation></semantics></math>
-(Coefficient of Determination)<a class="anchor" aria-label="anchor" href="#r2-coefficient-of-determination"></a>
+<span class="math inline">\(R^2\)</span> (Coefficient of
+Determination)<a class="anchor" aria-label="anchor" href="#r2-coefficient-of-determination"></a>
 </h3>
 <p>Computed from the residuals of the predictive model (see Equation 1),
 not from a regression between predicted and observed values, this is
 intended to reflect the proportion of variance in the observed data
 accounted for by the model. However, some caution with this statistic is
 in order: Though commonly used for nonlinear models, this residual-based
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>R</mi><mn>2</mn></msup><annotation encoding="application/x-tex">R^2</annotation></semantics></math>
-lacks the clear “variance explained” interpretation it has in linear
-regression—and is not constrained to the [0,1] interval. This is why it
-is sometimes referred to as a type of
-pseudo-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>R</mi><mn>2</mn></msup><annotation encoding="application/x-tex">R^2</annotation></semantics></math>
-when applied to non-linear models.</p>
-<p>That said, because this
-pseudo-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>R</mi><mn>2</mn></msup><annotation encoding="application/x-tex">R^2</annotation></semantics></math>
-is computed directly from the residuals of the model being evaluated,
-rather than from a secondary regression on the observed versus predicted
-values, it arguably offers a better heuristic for assessing model fit in
-this context. Still, even this form of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>R</mi><mn>2</mn></msup><annotation encoding="application/x-tex">R^2</annotation></semantics></math>
-can be misleading in models with a nonlinear structure—like SiGN (e.g.,
-Spiess &amp; Neumeyer, 2010).</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>R</mi><mn>2</mn></msup><mo>=</mo><mn>1</mn><mo>−</mo><mfrac><mrow><munder><mo>∑</mo><mi>i</mi></munder><msup><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>y</mi><mi>i</mi></msub><mo>−</mo><msub><mover><mi>y</mi><mo accent="true">̂</mo></mover><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup></mrow><mrow><munder><mo>∑</mo><mi>i</mi></munder><msup><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>y</mi><mi>i</mi></msub><mo>−</mo><mover><mi>y</mi><mo accent="true">‾</mo></mover><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup></mrow></mfrac></mrow><annotation encoding="application/x-tex">
+<span class="math inline">\(R^2\)</span> lacks the clear “variance
+explained” interpretation it has in linear regression—and is not
+constrained to the [0,1] interval. This is why it is sometimes referred
+to as a type of pseudo-<span class="math inline">\(R^2\)</span> when
+applied to non-linear models.</p>
+<p>That said, because this pseudo-<span class="math inline">\(R^2\)</span> is computed directly from the
+residuals of the model being evaluated, rather than from a secondary
+regression on the observed versus predicted values, it arguably offers a
+better heuristic for assessing model fit in this context. Still, even
+this form of <span class="math inline">\(R^2\)</span> can be misleading
+in models with a nonlinear structure—like SiGN (e.g., Spiess &amp;
+Neumeyer, 2010).</p>
+<p><span class="math display">\[
 \begin{equation}
 \tag{1}
 R^2 = 1 - \frac{\sum_i (y_i - \hat{y}_i)^2}{\sum_i (y_i - \bar{y})^2}
 \end{equation}
-</annotation></semantics></math></p>
+\]</span></p>
 <ul>
 <li>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>y</mi><mi>i</mi></msub><annotation encoding="application/x-tex">y_i</annotation></semantics></math>
-is the observed choice proportion for row
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
-in <code>subopt_avian</code>.</li>
+<span class="math inline">\(y_i\)</span> is the observed choice
+proportion for row <span class="math inline">\(i\)</span> in
+<code>subopt_avian</code>.</li>
 <li>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mi>y</mi><mo accent="true">‾</mo></mover><annotation encoding="application/x-tex">\bar{y}</annotation></semantics></math>
-is the mean observed choice proportion.</li>
+<span class="math inline">\(\bar{y}\)</span> is the mean observed
+choice proportion.</li>
 <li>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><msub><mi>y</mi><mi>i</mi></msub><mo accent="true">̂</mo></mover><annotation encoding="application/x-tex">\hat{y_i}</annotation></semantics></math>
-is the model-predicted choice proportion for row
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>.</li>
+<span class="math inline">\(\hat{y_i}\)</span> is the
+model-predicted choice proportion for row <span class="math inline">\(i\)</span>.</li>
 </ul>
 </div>
 <div class="section level3">
@@ -166,16 +177,17 @@ underpredictions roughly cancel out—but this does not imply inaccuracy
 that, because over- and underpredictions can cancel each other out, mean
 bias does not reflect the magnitude of prediction errors. See Equation
 2.</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">Mean Bias</mtext><mo>=</mo><mfrac><mn>1</mn><mi>n</mi></mfrac><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><mrow><mo stretchy="true" form="prefix">(</mo><msub><mover><mi>y</mi><mo accent="true">̂</mo></mover><mi>i</mi></msub><mo>−</mo><msub><mi>y</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">
+<p><span class="math display">\[
 \begin{equation}
 \tag{2}
-\text{Mean Bias} = \frac{1}{n} \sum_{i=1}^{n} \left( \hat{y}_i - y_i \right)
+\text{Mean Bias} = \frac{1}{n} \sum_{i=1}^{n} \left( \hat{y}_i - y_i
+\right)
 \end{equation}
-</annotation></semantics></math></p>
+\]</span></p>
 <ul>
 <li>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
-is the number of observations.</li>
+<span class="math inline">\(n\)</span> is the number of
+observations.</li>
 </ul>
 </div>
 <div class="section level3">
@@ -186,12 +198,13 @@ the squared differences between predicted and observed values and taking
 the square root. Because the errors are squared, RMSE penalises larger
 errors more heavily, making it sensitive to outliers. The result is in
 the same units as the original data. See Equation 3.</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">RMSE</mtext><mo>=</mo><msqrt><mrow><mfrac><mn>1</mn><mi>n</mi></mfrac><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><msup><mrow><mo stretchy="true" form="prefix">(</mo><msub><mover><mi>y</mi><mo accent="true">̂</mo></mover><mi>i</mi></msub><mo>−</mo><msub><mi>y</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup></mrow></msqrt></mrow><annotation encoding="application/x-tex">
+<p><span class="math display">\[
 \begin{equation}
 \tag{3}
-\text{RMSE} = \sqrt{ \frac{1}{n} \sum_{i=1}^{n} \left( \hat{y}_i - y_i \right)^2 }
+\text{RMSE} = \sqrt{ \frac{1}{n} \sum_{i=1}^{n} \left( \hat{y}_i - y_i
+\right)^2 }
 \end{equation}
-</annotation></semantics></math></p>
+\]</span></p>
 </div>
 <div class="section level3">
 <h3 id="mae-mean-absolute-error">MAE (mean absolute error)<a class="anchor" aria-label="anchor" href="#mae-mean-absolute-error"></a>
@@ -201,11 +214,12 @@ absolute differences rather than squared differences. Unlike RMSE, it
 treats all errors equally, making it more robust to outliers. Like RMSE,
 it is reported in the same units as the observed data. See Equation
 4.</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">MAE</mtext><mo>=</mo><mfrac><mn>1</mn><mi>n</mi></mfrac><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><mrow><mo stretchy="true" form="prefix">|</mo><msub><mover><mi>y</mi><mo accent="true">̂</mo></mover><mi>i</mi></msub><mo>−</mo><msub><mi>y</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">|</mo></mrow></mrow><annotation encoding="application/x-tex">
+<p><span class="math display">\[
 \begin{equation}
 \tag{4}
-\text{MAE} = \frac{1}{n} \sum_{i=1}^{n} \left| \hat{y}_i - y_i \right|\end{equation}
-</annotation></semantics></math></p>
+\text{MAE} = \frac{1}{n} \sum_{i=1}^{n} \left| \hat{y}_i - y_i
+\right|\end{equation}
+\]</span></p>
 </div>
 <div class="section level3">
 <h3 id="median-absolute-error">Median Absolute Error<a class="anchor" aria-label="anchor" href="#median-absolute-error"></a>
@@ -216,12 +230,13 @@ observed values. By relying on the median rather than the mean, this
 metric is extremely robust to outliers—though it may be less sensitive
 to smaller, systematic prediction errors than RMSE or MAE. See Equation
 5.</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">Median Absolute Error</mtext><mo>=</mo><mtext mathvariant="normal">median</mtext><mrow><mo stretchy="true" form="prefix">(</mo><mrow><mo stretchy="true" form="prefix">|</mo><msub><mover><mi>y</mi><mo accent="true">̂</mo></mover><mi>i</mi></msub><mo>−</mo><msub><mi>y</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">|</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">
+<p><span class="math display">\[
 \begin{equation}
 \tag{5}
-\text{Median Absolute Error} = \text{median} \left( \left| \hat{y}_i - y_i \right| \right)
+\text{Median Absolute Error} = \text{median} \left( \left| \hat{y}_i -
+y_i \right| \right)
 \end{equation}
-</annotation></semantics></math></p>
+\]</span></p>
 </div>
 <div class="section level3">
 <h3 id="lins-concordance-correlation-coefficient-ccc">Lin’s Concordance Correlation Coefficient (CCC)<a class="anchor" aria-label="anchor" href="#lins-concordance-correlation-coefficient-ccc"></a>
@@ -241,25 +256,26 @@ generally, CCC values above 0.9 are often considered strong, values
 between 0.7 and 0.9 suggest moderate agreement, and values below 0.7
 indicate weak concordance—even if the corresponding Pearson correlation
 appears acceptable. See Equation 6.</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ρ</mi><mi>c</mi></msub><mo>=</mo><mfrac><mrow><mn>2</mn><msub><mi>σ</mi><mrow><mi>x</mi><mi>y</mi></mrow></msub></mrow><mrow><msubsup><mi>σ</mi><mi>x</mi><mn>2</mn></msubsup><mo>+</mo><msubsup><mi>σ</mi><mi>y</mi><mn>2</mn></msubsup><mo>+</mo><msup><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>μ</mi><mi>x</mi></msub><mo>−</mo><msub><mi>μ</mi><mi>y</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mn>2</mn></msup></mrow></mfrac></mrow><annotation encoding="application/x-tex">
+<p><span class="math display">\[
 \begin{equation}
 \tag{6}
-\rho_c = \frac{2 \sigma_{xy}}{\sigma_x^2 + \sigma_y^2 + (\mu_x - \mu_y)^2}
+\rho_c = \frac{2 \sigma_{xy}}{\sigma_x^2 + \sigma_y^2 + (\mu_x -
+\mu_y)^2}
 \end{equation}
-</annotation></semantics></math></p>
+\]</span></p>
 <ul>
 <li>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>ρ</mi><mi>c</mi></msub><annotation encoding="application/x-tex">\rho_c</annotation></semantics></math>
-is Lin’s Concordance Correlation Coefficient</li>
+<span class="math inline">\(\rho_c\)</span> is Lin’s Concordance
+Correlation Coefficient</li>
 <li>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>σ</mi><mrow><mi>x</mi><mi>y</mi></mrow></msub><annotation encoding="application/x-tex">\sigma_{xy}</annotation></semantics></math>
-The covariance of the predicted and observed values.</li>
+<span class="math inline">\(\sigma_{xy}\)</span> The covariance of
+the predicted and observed values.</li>
 <li>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>μ</mi><mi>x</mi></msub><mo>,</mo><msub><mi>μ</mi><mi>y</mi></msub></mrow><annotation encoding="application/x-tex">\mu_x, \mu_y</annotation></semantics></math>
-are the means of the predicted and observed values.</li>
+<span class="math inline">\(\mu_x, \mu_y\)</span> are the means of
+the predicted and observed values.</li>
 <li>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>σ</mi><mi>x</mi></msub><mo>,</mo><msub><mi>σ</mi><mi>y</mi></msub></mrow><annotation encoding="application/x-tex">\sigma_x, \sigma_y</annotation></semantics></math>
-are the standard deviation of the predicted and observed values.</li>
+<span class="math inline">\(\sigma_x, \sigma_y\)</span> are the
+standard deviation of the predicted and observed values.</li>
 </ul>
 <p>Note: By default, <code><a href="../reference/choice_mod_eval.html">choice_mod_eval()</a></code> computes CCC using
 bias-corrected sample statistics. To match the uncorrected form shown in
@@ -278,30 +294,22 @@ documentation for <code><a href="../reference/ccc.html">ccc()</a></code> for mor
 al. (2024), who evaluated the SiGN model using a curated subset of avian
 suboptimal choice studies. This data set is included in the SiGN package
 as <code>subopt_avian</code>.</p>
-<p>In their original analysis, Dunn et al. reported
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>R</mi><mn>2</mn></msup><annotation encoding="application/x-tex">R^2</annotation></semantics></math>
-values based on the correlation between observed and predicted choice
-proportions. The logic was intuitive: if the model’s predictions align
-with the data, the correlation—and hence the
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>R</mi><mn>2</mn></msup><annotation encoding="application/x-tex">R^2</annotation></semantics></math>—should
-approach 1. Indeed, their scatterplot of observed versus predicted
-values showed a strong linear trend, with a slope near 1 and intercept
-near 0.</p>
+<p>In their original analysis, Dunn et al. reported <span class="math inline">\(R^2\)</span> values based on the correlation
+between observed and predicted choice proportions. The logic was
+intuitive: if the model’s predictions align with the data, the
+correlation—and hence the <span class="math inline">\(R^2\)</span>—should approach 1. Indeed, their
+scatterplot of observed versus predicted values showed a strong linear
+trend, with a slope near 1 and intercept near 0.</p>
 <p>At first glance, this suggests excellent model performance. However,
 this approach reflects only the strength of linear association—it does
 not assess how well the predictions actually replicate the observed
 data, nor does it validate the model’s theoretical assumptions. In this
-context, a high correlation-based
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>R</mi><mn>2</mn></msup><annotation encoding="application/x-tex">R^2</annotation></semantics></math>
-may signal superficial agreement rather than meaningful fit.</p>
-<p>A more appropriate alternative would have been to compute an
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>R</mi><mn>2</mn></msup><annotation encoding="application/x-tex">R^2</annotation></semantics></math>
-based on residual error from the predictive model itself (Kvålseth,
-1985)—the version detailed in Equation 1 above. While this
-residual-based
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>R</mi><mn>2</mn></msup><annotation encoding="application/x-tex">R^2</annotation></semantics></math>
-also has limitations (as discussed earlier), it offers a more direct
-measure of predictive accuracy.</p>
+context, a high correlation-based <span class="math inline">\(R^2\)</span> may signal superficial agreement
+rather than meaningful fit.</p>
+<p>A more appropriate alternative would have been to compute an <span class="math inline">\(R^2\)</span> based on residual error from the
+predictive model itself (Kvålseth, 1985)—the version detailed in
+Equation 1 above. While this residual-based <span class="math inline">\(R^2\)</span> also has limitations (as discussed
+earlier), it offers a more direct measure of predictive accuracy.</p>
 <p>For these reasons, many researchers recommend placing greater weight
 on information-theoretic metrics such as the Akaike Information
 Criterion (AIC) or Bayesian Information Criterion (BIC), especially when
@@ -343,14 +351,12 @@ documentation for full details).</p>
 <p>As requested during peer review, Dunn et al. (2024) evaluated the
 standard SiGN model along with two simplified variants:</p>
 <ul>
-<li><p>One with the
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>β</mi><annotation encoding="application/x-tex">\beta</annotation></semantics></math>
-term removed, and</p></li>
+<li><p>One with the <span class="math inline">\(\beta\)</span> term
+removed, and</p></li>
 <li><p>One without the bonus delay reduction mechanism.</p></li>
 </ul>
-<p>The SiGN model’s
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>β</mi><annotation encoding="application/x-tex">\beta</annotation></semantics></math>
-term serves to adjust the trade-off between conditional and terminal
+<p>The SiGN model’s <span class="math inline">\(\beta\)</span> term
+serves to adjust the trade-off between conditional and terminal
 reinforcement, which are often in opposition inside suboptimal choice
 procedures. Its influence is intended to be only a modest one. By
 contrast, the bonus delay reduction is a core feature of the SiGN model
@@ -420,53 +426,44 @@ performance, which we interpret in the following section.</p>
 <div class="section level3">
 <h3 id="conclusion">Conclusion<a class="anchor" aria-label="anchor" href="#conclusion"></a>
 </h3>
-<p>In this reanalysis, the
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>R</mi><mn>2</mn></msup><annotation encoding="application/x-tex">R^2</annotation></semantics></math>
+<p>In this reanalysis, the <span class="math inline">\(R^2\)</span>
 value for the full model (0.77) is slightly lower than the originally
 reported value of 0.84 (Dunn et al., 2024), as is the value for the
-no-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>β</mi><annotation encoding="application/x-tex">\beta</annotation></semantics></math>
-model (0.76 vs. 0.82). The no-bonus model shows the greatest
-discrepancy: while previously reported at 0.48, it now yields a negative
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>R</mi><mn>2</mn></msup><annotation encoding="application/x-tex">R^2</annotation></semantics></math>
-of -0.14, indicating that it performs worse than a null model that
-simply predicts the mean of the observed values. Although negative
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>R</mi><mn>2</mn></msup><annotation encoding="application/x-tex">R^2</annotation></semantics></math>
+no-<span class="math inline">\(\beta\)</span> model (0.76 vs. 0.82). The
+no-bonus model shows the greatest discrepancy: while previously reported
+at 0.48, it now yields a negative <span class="math inline">\(R^2\)</span> of -0.14, indicating that it performs
+worse than a null model that simply predicts the mean of the observed
+values. Although negative <span class="math inline">\(R^2\)</span>
 values may seem counterintuitive, they can arise in the evaluation of
-nonlinear models, where
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>R</mi><mn>2</mn></msup><annotation encoding="application/x-tex">R^2</annotation></semantics></math>
-is no longer equivalent to the squared Pearson correlation coefficient.
-Dunn et al. had used a version of
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>R</mi><mn>2</mn></msup><annotation encoding="application/x-tex">R^2</annotation></semantics></math>
+nonlinear models, where <span class="math inline">\(R^2\)</span> is no
+longer equivalent to the squared Pearson correlation coefficient. Dunn
+et al. had used a version of <span class="math inline">\(R^2\)</span>
 based on linear regression, where that equivalence holds, which is why
 there is a discrepancy.</p>
 <p>The mean bias values further distinguish the models: both the full
-and
-no-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>β</mi><annotation encoding="application/x-tex">\beta</annotation></semantics></math>
-models exhibit negligible bias—suggesting no systematic over- or
-underprediction—while the no-bonus model shows clear underprediction of
-choice proportions.</p>
+and no-<span class="math inline">\(\beta\)</span> models exhibit
+negligible bias—suggesting no systematic over- or underprediction—while
+the no-bonus model shows clear underprediction of choice
+proportions.</p>
 <p>The RMSE and MAE metrics reinforce these patterns. For the full and
-no-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>β</mi><annotation encoding="application/x-tex">\beta</annotation></semantics></math>
-models, average prediction errors fall within approximately 10–14
-percentage points, indicating reasonably good fit. In contrast, the
-no-bonus model exhibits substantially larger errors, with deviations
-averaging upwards of 30 percentage points. Additionally, the discrepancy
-between the mean and median absolute error for the no-bonus model also
-suggests that outliers are a problem for it.</p>
+no-<span class="math inline">\(\beta\)</span> models, average prediction
+errors fall within approximately 10–14 percentage points, indicating
+reasonably good fit. In contrast, the no-bonus model exhibits
+substantially larger errors, with deviations averaging upwards of 30
+percentage points. Additionally, the discrepancy between the mean and
+median absolute error for the no-bonus model also suggests that outliers
+are a problem for it.</p>
 <p>The CCC offers a complementary perspective. Both the full and
-no-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>β</mi><annotation encoding="application/x-tex">\beta</annotation></semantics></math>
-models show strong concordance between predicted and observed values
-(0.904 and 0.897), whereas the no-bonus model’s CCC (0.584) reflects
-substantially poorer agreement, consistent with its performance on the
-other metrics.</p>
+no-<span class="math inline">\(\beta\)</span> models show strong
+concordance between predicted and observed values (0.904 and 0.897),
+whereas the no-bonus model’s CCC (0.584) reflects substantially poorer
+agreement, consistent with its performance on the other metrics.</p>
 <p>Taken together, these results support the interpretation offered in
-Dunn et al. (2024): the inclusion of the
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>β</mi><annotation encoding="application/x-tex">\beta</annotation></semantics></math>
-term yields modest but consistent improvements in predictive accuracy.
-While its effect is small, this is consistent with its intended role as
-a fine-tuning mechanism rather than a core driver of choice behaviour.
-Thus, its limited impact should not be taken as evidence against its
-theoretical relevance.</p>
+Dunn et al. (2024): the inclusion of the <span class="math inline">\(\beta\)</span> term yields modest but consistent
+improvements in predictive accuracy. While its effect is small, this is
+consistent with its intended role as a fine-tuning mechanism rather than
+a core driver of choice behaviour. Thus, its limited impact should not
+be taken as evidence against its theoretical relevance.</p>
 </div>
 <div class="section level3">
 <h3 id="visual-summary">Visual Summary<a class="anchor" aria-label="anchor" href="#visual-summary"></a>
@@ -510,12 +507,12 @@ for reference.</p>
 <h2 id="further-reading">Further Reading<a class="anchor" aria-label="anchor" href="#further-reading"></a>
 </h2>
 <p>While the present vignette focuses on descriptive fit metrics (e.g.,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>R</mi><mn>2</mn></msup><annotation encoding="application/x-tex">R^2</annotation></semantics></math>,
-RMSE, MAE, CCC), the <code><a href="../reference/choice_mod_eval.html">choice_mod_eval()</a></code> function also
-returns information-theoretic outputs via the
-<code>$info_criteria</code> element. These include log-likelihoods, AIC,
-and BIC values based on a beta-distributed error model—tools that are
-especially useful for model comparison and formal model selection.</p>
+<span class="math inline">\(R^2\)</span>, RMSE, MAE, CCC), the
+<code><a href="../reference/choice_mod_eval.html">choice_mod_eval()</a></code> function also returns
+information-theoretic outputs via the <code>$info_criteria</code>
+element. These include log-likelihoods, AIC, and BIC values based on a
+beta-distributed error model—tools that are especially useful for model
+comparison and formal model selection.</p>
 <p>For a detailed discussion of these likelihood-based methods,
 including theoretical justification and examples, see the companion
 vignette:</p>
