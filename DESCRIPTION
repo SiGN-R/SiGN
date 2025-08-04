@@ -1,11 +1,15 @@
 Package: SiGN
-Title: What the Package Does (One Line, Title Case)
+Title: Signal for Good News Model R Package
 Version: 0.0.0.9000
-Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+Authors@R: c(
+    person("Jeffrey", "Pisklak", , "pisklak@ualberta.ca", role = c("aut", "cre"),
+    comment = c(ORCID = "0000-0002-5465-7978")),
+    person("Roger", "Dunn", role = "aut"),
+    person("Margaret", "McDevitt", role = "aut"),
+    person("Marcia", "Spetch", role = "aut")
+    )
+Description: An R package that implements the Signals for Good News (SiGN) model to compute behavioural predictions in operant choice paradigms.
+License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
