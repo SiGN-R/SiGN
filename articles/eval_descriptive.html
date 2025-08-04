@@ -101,7 +101,7 @@ vector of observed choice proportions and a vector of predicted choice
 proportions from the model.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/choice_mod_eval.html">choice_mod_eval</a></span><span class="op">(</span><span class="va">observed</span>, <span class="va">predicted</span>, k <span class="op">=</span> <span class="fl">0</span>, epsilon <span class="op">=</span> <span class="fl">0.001</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
-<p>The function can take some additional arguments <code>k</code> and
+<p>The function can take additional arguments <code>k</code> and
 <code>epsilon</code>, but as these pertain to the information-theoretic
 outputs, they are not considered here (see <a href="eval_info-theoretic.html">Information-Theoretic
 Statistics</a>).</p>
@@ -291,17 +291,17 @@ documentation for <code><a href="../reference/ccc.html">ccc()</a></code> for mor
 </h3>
 <p>To demonstrate a real-world use case of
 <code><a href="../reference/choice_mod_eval.html">choice_mod_eval()</a></code>, we revisit the analysis from Dunn et
-al. (2024), who evaluated the SiGN model using a curated subset of avian
-suboptimal choice studies. This data set is included in the SiGN package
-as <code>subopt_avian</code>.</p>
+al. (2024), which evaluated the SiGN model using a curated subset of
+avian suboptimal choice studies. That data set is included in the SiGN
+package as <code>subopt_avian</code>.</p>
 <p>In their original analysis, Dunn et al. reported <span class="math inline">\(R^2\)</span> values based on the correlation
 between observed and predicted choice proportions. The logic was
 intuitive: if the model’s predictions align with the data, the
 correlation—and hence the <span class="math inline">\(R^2\)</span>—should approach 1. Indeed, their
 scatterplot of observed versus predicted values showed a strong linear
-trend, with a slope near 1 and intercept near 0.</p>
-<p>At first glance, this suggests excellent model performance. However,
-this approach, which has often been the standard in the choice
+trend, with a slope near 1 and intercept near 0 suggesting excellent
+model performance.</p>
+<p>That approach, which has often been the standard in the choice
 literature, reflects only the strength of linear association. It does
 not assess how well the predictions actually replicate the observed
 data, nor does it validate the model’s theoretical assumptions. In this
@@ -315,8 +315,8 @@ earlier), it offers a more direct measure of predictive accuracy.</p>
 <p>For these reasons, many researchers recommend placing greater weight
 on information-theoretic metrics such as the Akaike Information
 Criterion (AIC) or Bayesian Information Criterion (BIC), especially when
-comparing nonlinear models or models of differing complexity (Spiess
-&amp; Neumeyer, 2010). These criteria provide more theoretically
+comparing nonlinear models or models of differing complexity (e.g.,
+Spiess &amp; Neumeyer, 2010). These criteria provide more theoretically
 grounded assessments of model fit and penalise complexity in a
 principled way.</p>
 <p>That said, it’s important to note that the SiGN model used by Dunn et
