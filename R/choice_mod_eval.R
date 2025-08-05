@@ -66,7 +66,7 @@
 #'
 #' The AIC and BIC are then computed as:
 #' \deqn{\text{AIC} = 2k - 2\log L,\quad \text{BIC} = \log(n) \cdot k - 2\log L}
-#' where \eqn{k = 1} is the number of estimated parameters and \eqn{n} is the number of observations.
+#' where \eqn{k} is the number of estimated parameters and \eqn{n} is the number of observations. Note, because of the incorporation of the Beta error model, the function adds a value of 1 to whatever value of `k` is supplied.  i.e., `k = k + 1`
 #'
 #' Observed and predicted values are assumed to lie strictly within the unit
 #' interval (0, 1). Values near 0 or 1 are adjusted using the `epsilon`
