@@ -367,9 +367,7 @@ no_bonus$info_criteria # no-bonus model
 
 Although we pass `k = 0` to the function, the implementation automatically adds 1 internally to account for the estimated precision parameter $\phi$. This design allows users to supply `k` as the number of parameters in the predictive model itself, while keeping the error model assumption consistent.
 
-**Thus, users are not limited to evaluating the SiGN model—this function can be applied to any model that produces predictions on the (0, 1) interval, such as logistic regression, reinforcement learning models, or other proportion-based models.**
-
-> ⚠️ Caveat: The predictive model should provide only the expected value (i.e., mean structure), and not incorporate its own stochastic error model. If the model already simulates or embeds variability (e.g., by sampling outcomes or including its own likelihood), then layering an additional Beta error model on top may be inappropriate, as the assumptions of `choice_mod_eval()` would no longer hold.
+**Thus, users are not limited to evaluating the SiGN model—this function can be applied to any model that produces predictions on the (0, 1) interval, such as logistic regression, reinforcement learning models, or other proportion-based models.** See [Application to Other Models](#application-to-other-models) at the bottom of this article.
 
 ### Bayes Factors
 
@@ -465,6 +463,37 @@ At face value, a result like `7.84247e+84` may appear absurdly large, but this i
 In both comparisons, the full SiGN model is preferred—especially over the no-bonus variant, where the evidence is overwhelming. Although Dunn et al. (2024) relied on a less appropriate analytical method—using regressions of observed versus predicted values—their qualitative conclusion was ultimately correct: the full model offers the best account of the data.
 
 That said, their method overstated the evidence for including the $\beta$ term. The Bayes Factor analysis presented here reveals a more modest but consistent advantage. Still, as noted in the companion article ([Model Evaluation: Descriptive Statistics](eval_descriptive.html)), the role of $\beta$ was never expected to produce dramatic shifts in the model's predictions. Its relatively subtle effect should not be taken as evidence against its conceptual relevance.
+
+## Application to Other Models
+
+While `choice_mod_eval()` was designed with the SiGN model in mind, it is not restricted to that use case. The function can be applied to any model that produces predicted values on the (0, 1) interval—such as logistic regression models, reinforcement learning models, or any framework predicting choice or response proportions.
+
+However, several important caveats should be considered before applying it more broadly:
+
+⚠️ Important Caveats: 
+
+You must specify the number of free parameters used by the predictive model via the `k` argument. For example, if the model used to generate the predictions includes three free parameters, call the function like this:
+
+```r
+choice_mod_eval(observed, predicted, k = 3)
+```
+
+The function will automatically add one additional parameter to account for the precision term ($\phi$) used in the Beta error model when calculating AIC and BIC.
+
+When using `choice_mod_eval()` and BIC-derived Bayes Factors, keep the following assumptions and limitations in mind:
+
+* **The predictive model should specify only the mean structure.**
+That is, the model should output **expected values** (e.g., choice proportions) without incorporating its own error distribution or stochastic simulation. If the model already generates variability (e.g., by sampling outcomes or defining its own likelihood), then applying an additional Beta error model on top is likely inappropriate, as this violates the assumptions behind `choice_mod_eval()`.
+
+* **BIC provides only an approximation of the true Bayes Factor.**
+As such, this method performs best with a moderate to large sample size. A common rule of thumb is at least 30 observations for reliable model comparison. With fewer than 30 data points, BIC-based Bayes Factors may be unstable or misleading.
+
+* **The sample size should be large relative to the number of free parameters.**
+Specifically, the ratio of observations ($n$) to free parameters ($k$) should be much greater than 1. A good minimum is $n/k > 10$; for nonlinear models, $n/k > 20$ is often preferable. If $n/k \approx 1$, the model is likely overfitting—capturing noise instead of the underlying signal—and may not generalise well.
+
+* **Observations should be independent.**
+This is critical for likelihood-based comparisons. When fitting data from individual subjects across multiple conditions, ensure that condition order is randomised and that proportions are aggregated across many trials (ideally after a learning or burn-in phase). Trial-level binary choices are often autocorrelated and may violate the independence assumption.
+
 
 ## References
 
