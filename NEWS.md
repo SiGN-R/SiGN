@@ -1,5 +1,9 @@
 # SiGN (development version)
 
+## 2025-08-05
+
+* Added additional warning inside `choice_mod_eval()` for overfitting.
+
 ## 2025-08-02
 
 * Two new vignettes (i.e., "articles") have been added to illustrate model evaluation with the package:
