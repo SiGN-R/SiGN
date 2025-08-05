@@ -130,7 +130,7 @@ Unlike in linear regression, \(R^2\) does not have a clear interpretation
 in terms of explained variance, nor is it guaranteed to fall between 0 and 1.
 In particular, it can take on negative values when the model fits worse than
 the mean. As such, it is best used here as a rough, supplementary indicator
-of model performance rather than a definitive measure of fit—effectively,
+of model performance rather than a definitive measure of fit-effectively,
 a "pseudo-\(R^2\)."</p>
 <p>For the likelihood-based metrics in <code>$info_criteria</code>, a beta-distributed
 error model for choice proportions is incorporated. This adds one fitted
@@ -174,6 +174,7 @@ function is provided in the following companion vignettes:
 <span class="r-in"><span><span class="va">pred</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">0.35</span>, <span class="fl">0.65</span>, <span class="fl">0.75</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu">choice_mod_eval</span><span class="op">(</span><span class="va">obs</span>, <span class="va">pred</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ℹ Sample size is small (n &lt; 30); AIC and BIC may be unstable or less reliable for model comparison.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>⚠ The ratio of observations to free parameters is low (n = 4, k = 1). Information criteria such as AIC and BIC may be unreliable when n/k ≤ 10. Consider simplifying your model or increasing sample size.</span>
 <span class="r-in"><span><span class="va">result</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $desc_stats</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   n r_squared     mean_bias rmse  mae median_ae      ccc</span>
