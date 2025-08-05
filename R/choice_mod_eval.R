@@ -43,7 +43,7 @@
 #' in terms of explained variance, nor is it guaranteed to fall between 0 and 1.
 #' In particular, it can take on negative values when the model fits worse than
 #' the mean. As such, it is best used here as a rough, supplementary indicator
-#' of model performance rather than a definitive measure of fit—effectively,
+#' of model performance rather than a definitive measure of fit-effectively,
 #' a "pseudo-\eqn{R^2}."
 #'
 #' For the likelihood-based metrics in `$info_criteria`, a beta-distributed
@@ -138,6 +138,13 @@ choice_mod_eval <- function(observed, predicted, k = 0, epsilon = 0.001, ...) {
   k <- k + 1
   aic <- 2*k - 2 * ll
   bic <- -2 * ll + k * log(n)
+
+  if (n / k <= 10) {
+    warning(sprintf(
+      "\u26A0 The ratio of observations to free parameters is low (n = %d, k = %d). Information criteria such as AIC and BIC may be unreliable when n/k \u2264 10. Consider simplifying your model or increasing sample size.",
+      n, k
+    ), call. = FALSE)
+  }
 
   desc_stats <- data.frame(
     n = n,
