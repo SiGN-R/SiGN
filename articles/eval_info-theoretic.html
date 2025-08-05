@@ -580,15 +580,8 @@ assumption consistent.</p>
 <p><strong>Thus, users are not limited to evaluating the SiGN model—this
 function can be applied to any model that produces predictions on the
 (0, 1) interval, such as logistic regression, reinforcement learning
-models, or other proportion-based models.</strong></p>
-<blockquote>
-<p>⚠️ Caveat: The predictive model should provide only the expected
-value (i.e., mean structure), and not incorporate its own stochastic
-error model. If the model already simulates or embeds variability (e.g.,
-by sampling outcomes or including its own likelihood), then layering an
-additional Beta error model on top may be inappropriate, as the
-assumptions of <code><a href="../reference/choice_mod_eval.html">choice_mod_eval()</a></code> would no longer hold.</p>
-</blockquote>
+models, or other proportion-based models.</strong> See <a href="#application-to-other-models">Application to Other Models</a> at
+the bottom of this article.</p>
 </div>
 <div class="section level3">
 <h3 id="bayes-factors">Bayes Factors<a class="anchor" aria-label="anchor" href="#bayes-factors"></a>
@@ -745,6 +738,58 @@ was never expected to produce dramatic shifts in the model’s
 predictions. Its relatively subtle effect should not be taken as
 evidence against its conceptual relevance.</p>
 </div>
+</div>
+<div class="section level2">
+<h2 id="application-to-other-models">Application to Other Models<a class="anchor" aria-label="anchor" href="#application-to-other-models"></a>
+</h2>
+<p>While <code><a href="../reference/choice_mod_eval.html">choice_mod_eval()</a></code> was designed with the SiGN model
+in mind, it is not restricted to that use case. The function can be
+applied to any model that produces predicted values on the (0, 1)
+interval—such as logistic regression models, reinforcement learning
+models, or any framework predicting choice or response proportions.</p>
+<p>However, several important caveats should be considered before
+applying it more broadly:</p>
+<p>⚠️ Important Caveats:</p>
+<p>You must specify the number of free parameters used by the predictive
+model via the <code>k</code> argument. For example, if the model used to
+generate the predictions includes three free parameters, call the
+function like this:</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/choice_mod_eval.html">choice_mod_eval</a></span><span class="op">(</span><span class="va">observed</span>, <span class="va">predicted</span>, k <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
+<p>The function will automatically add one additional parameter to
+account for the precision term (<span class="math inline">\(\phi\)</span>) used in the Beta error model when
+calculating AIC and BIC.</p>
+<p>When using <code><a href="../reference/choice_mod_eval.html">choice_mod_eval()</a></code> and BIC-derived Bayes
+Factors, keep the following assumptions and limitations in mind:</p>
+<ul>
+<li><p><strong>The predictive model should specify only the mean
+structure.</strong> That is, the model should output <strong>expected
+values</strong> (e.g., choice proportions) without incorporating its own
+error distribution or stochastic simulation. If the model already
+generates variability (e.g., by sampling outcomes or defining its own
+likelihood), then applying an additional Beta error model on top is
+likely inappropriate, as this violates the assumptions behind
+<code><a href="../reference/choice_mod_eval.html">choice_mod_eval()</a></code>.</p></li>
+<li><p><strong>BIC provides only an approximation of the true Bayes
+Factor.</strong> As such, this method performs best with a moderate to
+large sample size. A common rule of thumb is at least 30 observations
+for reliable model comparison. With fewer than 30 data points, BIC-based
+Bayes Factors may be unstable or misleading.</p></li>
+<li><p><strong>The sample size should be large relative to the number of
+free parameters.</strong> Specifically, the ratio of observations (<span class="math inline">\(n\)</span>) to free parameters (<span class="math inline">\(k\)</span>) should be much greater than 1. A good
+minimum is <span class="math inline">\(n/k &gt; 10\)</span>; for
+nonlinear models, <span class="math inline">\(n/k &gt; 20\)</span> is
+often preferable. If <span class="math inline">\(n/k \approx 1\)</span>,
+the model is likely overfitting—capturing noise instead of the
+underlying signal—and may not generalise well.</p></li>
+<li><p><strong>Observations should be independent.</strong> This is
+critical for likelihood-based comparisons. When fitting data from
+individual subjects across multiple conditions, ensure that condition
+order is randomised and that proportions are aggregated across many
+trials (ideally after a learning or burn-in phase). Trial-level binary
+choices are often autocorrelated and may violate the independence
+assumption.</p></li>
+</ul>
 </div>
 <div class="section level2">
 <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>

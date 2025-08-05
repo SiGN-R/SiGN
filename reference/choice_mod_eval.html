@@ -149,7 +149,7 @@ parameter.</p>
 $$\log L = \sum_i \log \left[ \text{Beta}(y_i | \alpha_i, \beta_i) \right]$$</p>
 <p>The AIC and BIC are then computed as:
 $$\text{AIC} = 2k - 2\log L,\quad \text{BIC} = \log(n) \cdot k - 2\log L$$
-where \(k = 1\) is the number of estimated parameters and \(n\) is the number of observations.</p>
+where \(k\) is the number of estimated parameters and \(n\) is the number of observations. Note, because of the incorporation of the Beta error model, the function adds a value of 1 to whatever value of <code>k</code> is supplied.  i.e., <code>k = k + 1</code></p>
 <p>Observed and predicted values are assumed to lie strictly within the unit
 interval (0, 1). Values near 0 or 1 are adjusted using the <code>epsilon</code>
 parameter to avoid undefined behaviour under the beta distribution.</p>
