@@ -2,3 +2,4 @@
 - Add generalised SiGN
 - Add rats vignette.
 - Proof read documentation.
+- checks
